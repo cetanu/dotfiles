@@ -1,11 +1,23 @@
+
 "" Plugins
 call plug#begin('~/.vim/plugged')
+" themes
 Plug 'morhetz/gruvbox'
 Plug 'ayu-theme/ayu-vim'
 
+" status line
+Plug 'hoob3rt/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'ryanoasis/vim-devicons'
+
+" Misc
 Plug 'unblevable/quick-scope'
-Plug 'vim-airline/vim-airline'
 Plug 'mbbill/undotree'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'tpope/vim-surround'
+
+" Git
+Plug 'tpope/vim-fugitive'
 
 " Completion
 Plug 'neovim/nvim-lspconfig'
@@ -105,11 +117,86 @@ EOF
 " Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fc <cmd>Telescope git_status<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>gd <cmd>Telescope lsp_definitions<cr>
+nnoremap <leader>gl <cmd>Telescope lsp_workspace_diagnostics<cr>
+
+" Lsp mappings
+nnoremap <leader>lr <cmd>lua vim.lsp.buf.rename()<cr>
+nnoremap <leader>lh <cmd>lua vim.lsp.buf.hover()<cr>
+nnoremap <leader>ld <cmd>lua vim.lsp.buf.references()<cr>
+nnoremap <leader>ln <cmd>lua vim.buf.diagnostic.goto_next()<cr>
+nnoremap <leader>ll <cmd>lua vim.lsp.diagnostic.set_loclist()<cr>
 
 " LSP
 set completeopt=menuone,noinsert,noselect
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-lua require'lspconfig'.pyright.setup{ on_attach=require'completion'.on_attach}
-lua require'lspconfig'.rust_analyzer.setup{ on_attach=require'completion'.on_attach}
+
+lua <<EOF
+local has_lsp, lspconfig = pcall(require, 'lspconfig')
+local completion = require('completion')
+
+lspconfig.pyright.setup{ on_attach=completion.on_attach}
+lspconfig.rust_analyzer.setup{ on_attach=completion.on_attach}
+EOF
+
+" Lua line
+lua <<EOF
+local lualine = require'lualine'
+
+local config = {
+  options = {
+    component_separators = "",
+    section_separators = "",
+    icons_enabled = true,
+    padding = 1,
+    theme = 'ayu_dark'
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {
+        {'branch', icon = ''},
+    },
+    lualine_c = {
+        'filename', 
+        {
+            'diagnostics', 
+            sources = {'nvim_lsp'},
+            symbols = {error = '✘ ', warn = '! ', info= 'i '},
+            color_error = "#ff0000",
+            color_warn = "#ffff00",
+            color_info = "#00ff99",
+        }
+    },
+    lualine_x = {
+    --[[ Not sure if I care about these
+        {'encoding',},
+        {'filetype',},
+    --]]
+    },
+    lualine_y = {{'progress', color = {fg = "#FFFFFF"}}},
+    lualine_z = {'location'}
+  }
+}
+
+-- Lsp server name
+table.insert(config.sections.lualine_x, {
+  function ()
+    local msg = 'LSP off'
+    local buf_ft = vim.api.nvim_buf_get_option(0,'filetype')
+    local clients = vim.lsp.get_active_clients()
+    if next(clients) == nil then return msg end
+    for _, client in ipairs(clients) do
+      local filetypes = client.config.filetypes
+      if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+        return client.name
+      end
+    end
+    return msg
+  end,
+  color = {fg = "#FFFF00", gui = "bold"}
+})
+
+lualine.setup(config)
+EOF
