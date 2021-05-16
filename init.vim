@@ -24,6 +24,7 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'folke/lsp-colors.nvim'
 Plug 'kosayoda/nvim-lightbulb'
+Plug 'ray-x/lsp_signature.nvim'
 
 " Telescope
 Plug 'nvim-lua/popup.nvim'
@@ -214,3 +215,7 @@ require("lsp-colors").setup({
 EOF
 
 autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
+
+lua <<EOF
+require'lsp_signature'.on_attach()
+EOF
