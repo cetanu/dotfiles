@@ -23,6 +23,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'folke/lsp-colors.nvim'
+Plug 'kosayoda/nvim-lightbulb'
 
 " Telescope
 Plug 'nvim-lua/popup.nvim'
@@ -211,3 +212,5 @@ require("lsp-colors").setup({
   Hint = "#10B981"
 })
 EOF
+
+autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
