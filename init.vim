@@ -24,7 +24,8 @@ Plug 'unblevable/quick-scope'
 Plug 'mbbill/undotree'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-surround'
-Plug 'yamatsum/nvim-cursorline'
+"Plug 'yamatsum/nvim-cursorline'
+Plug 'cespare/vim-toml'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -220,9 +221,21 @@ table.insert(config.sections.lualine_x, {
 lualine.setup(config)
 EOF
 
-colorscheme material
-lua vim.g.material_style = "deep ocean"
 
+" Material theme
+lua <<EOF
+vim.g.material_style = 'deep ocean'
+vim.g.material_italic_comments = true
+vim.g.material_italic_keywords = true
+vim.g.material_italic_functions = true
+vim.g.material_italic_variables = false
+vim.g.material_contrast = true
+vim.g.material_borders = false
+vim.g.material_disable_background = true
+
+-- Load the colorscheme
+require('material').set()
+EOF
 
 " Buffer navigation
 nnoremap <silent> <A-,> :BufferPrevious<CR>
