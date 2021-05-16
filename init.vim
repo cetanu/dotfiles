@@ -4,11 +4,20 @@ call plug#begin('~/.vim/plugged')
 " themes
 Plug 'morhetz/gruvbox'
 Plug 'ayu-theme/ayu-vim'
+Plug 'wadackel/vim-dogrun'
+Plug 'shaunsingh/moonlight.nvim'
+Plug 'Th3Whit3Wolf/one-nvim'
+Plug 'cseelus/vim-colors-lucid'
+Plug 'marko-cerovac/material.nvim'
 
 " status line
 Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
+
+" buffers / tabs
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'romgrk/barbar.nvim'
 
 " Misc
 Plug 'unblevable/quick-scope'
@@ -38,6 +47,10 @@ Plug 'BurntSushi/ripgrep'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 call plug#end()
+
+lua require("lsp-colors").setup()
+lua require("lsp_signature").on_attach()
+autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 
 
 syntax on
@@ -83,7 +96,6 @@ inoremap <left> <nop>
 inoremap <right> <nop>
 
 " Color Scheme
-colorscheme ayu
 set colorcolumn=80
 highlight ColorColumn ctermbg=80 guibg=lightgrey
 
@@ -204,18 +216,10 @@ table.insert(config.sections.lualine_x, {
 lualine.setup(config)
 EOF
 
+colorscheme material
+lua require("material.functions").change_style("deep ocean")
 
-lua <<EOF
-require("lsp-colors").setup({
-  Error = "#db4b4b",
-  Warning = "#e0af68",
-  Information = "#0db9d7",
-  Hint = "#10B981"
-})
-EOF
 
-autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
-
-lua <<EOF
-require'lsp_signature'.on_attach()
-EOF
+" Buffer navigation
+nnoremap <silent> <A-,> :BufferPrevious<CR>
+nnoremap <silent> <A-.> :BufferNext<CR>
