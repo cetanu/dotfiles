@@ -1,13 +1,14 @@
 # Rust CLI replacements
 alias ls="exa"
-alias ll='exa -l'
+alias ll="exa -l"
 alias cat="bat"
 alias grep="rg"
 
-alias vim='nvim'
-alias p='cd ~/Documents'
-alias vrc='nvim ~/.config/nvim/init.vim'
-alias vfi='nvim ~/.config/fish/config.fish'
+alias vim="nvim"
+alias p="cd ~/Documents"
+alias vrc="nvim ~/.config/nvim/init.vim"
+alias vfi="nvim ~/.config/fish/config.fish"
+alias gitcf="git commit --amend; git push -f"
 
 # Docker
 alias dkill="docker ps -qa | xargs docker kill"
