@@ -27,7 +27,7 @@ set PATH "$HOME/.cargo/bin:$PATH"
 set PATH "$HOME/.local/bin:$PATH"
 set PATH "$HOME/.poetry/bin:$PATH"
 
-if [[ -f "${HOME}/.config/cloudtoken/bashrc_additions" ]]; then
-    source "${HOME}/.config/cloudtoken/bashrc_additions"
-fi
+if test -e "$HOME/.config/cloudtoken/bashrc_additions"
+    source "$HOME/.config/cloudtoken/bashrc_additions"
+end
 
