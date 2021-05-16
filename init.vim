@@ -19,9 +19,10 @@ Plug 'tpope/vim-surround'
 " Git
 Plug 'tpope/vim-fugitive'
 
-" Completion
+" LSP
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
+Plug 'folke/lsp-colors.nvim'
 
 " Telescope
 Plug 'nvim-lua/popup.nvim'
@@ -199,4 +200,14 @@ table.insert(config.sections.lualine_x, {
 })
 
 lualine.setup(config)
+EOF
+
+
+lua <<EOF
+require("lsp-colors").setup({
+  Error = "#db4b4b",
+  Warning = "#e0af68",
+  Information = "#0db9d7",
+  Hint = "#10B981"
+})
 EOF
