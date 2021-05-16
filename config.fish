@@ -31,3 +31,5 @@ if test -e "$HOME/.config/cloudtoken/bashrc_additions"
     source "$HOME/.config/cloudtoken/bashrc_additions"
 end
 
+set -x STARSHIP_CONFIG ~/.config/starship/starship.toml
+starship init fish | source
