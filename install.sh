@@ -6,3 +6,6 @@ ln config.fish ~/.config/fish/config.fish
 
 mkdir -p ~/.config/tmux
 ln tmux.conf ~/.config/tmux/.tmux.conf
+
+mkdir -p ~/.config/alacritty
+ln alacritty.yml ~/.config/alacritty/alacritty.yml
