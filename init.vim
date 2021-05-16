@@ -24,9 +24,12 @@ Plug 'unblevable/quick-scope'
 Plug 'mbbill/undotree'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-surround'
+Plug 'yamatsum/nvim-cursorline'
 
 " Git
 Plug 'tpope/vim-fugitive'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
@@ -48,6 +51,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 call plug#end()
 
+lua require("gitsigns").setup()
 lua require("lsp-colors").setup()
 lua require("lsp_signature").on_attach()
 autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
@@ -166,7 +170,7 @@ local config = {
     section_separators = "",
     icons_enabled = true,
     padding = 1,
-    theme = 'ayu_dark'
+    theme = 'material-nvim'
   },
   sections = {
     lualine_a = {'mode'},
@@ -217,7 +221,7 @@ lualine.setup(config)
 EOF
 
 colorscheme material
-lua require("material.functions").change_style("deep ocean")
+lua vim.g.material_style = "deep ocean"
 
 
 " Buffer navigation
