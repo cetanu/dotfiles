@@ -16,7 +16,6 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
 
 " buffers / tabs
-Plug 'kyazdani42/nvim-web-devicons'
 Plug 'romgrk/barbar.nvim'
 
 " Misc
@@ -26,6 +25,8 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-surround'
 "Plug 'yamatsum/nvim-cursorline'
 Plug 'cespare/vim-toml'
+Plug 'psf/black', { 'branch': 'stable' }
+Plug 'tpope/vim-dispatch'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -240,3 +241,6 @@ EOF
 " Buffer navigation
 nnoremap <silent> <A-,> :BufferPrevious<CR>
 nnoremap <silent> <A-.> :BufferNext<CR>
+
+" Python formatting
+autocmd BufWritePre *.py execute ":Black"
