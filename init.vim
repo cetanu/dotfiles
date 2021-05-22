@@ -242,6 +242,7 @@ EOF
 " Buffer navigation
 nnoremap <silent> <A-,> :BufferPrevious<CR>
 nnoremap <silent> <A-.> :BufferNext<CR>
+nnoremap <leader>T <cmd>BufferPick<CR>
 
 " Python formatting
 autocmd BufWritePre *.py execute ":Black"
