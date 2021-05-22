@@ -9,6 +9,7 @@ Plug 'shaunsingh/moonlight.nvim'
 Plug 'Th3Whit3Wolf/one-nvim'
 Plug 'cseelus/vim-colors-lucid'
 Plug 'marko-cerovac/material.nvim'
+Plug 'wojciechkepka/bogster'
 
 " status line
 Plug 'hoob3rt/lualine.nvim'
@@ -27,10 +28,10 @@ Plug 'tpope/vim-surround'
 Plug 'cespare/vim-toml'
 Plug 'psf/black', { 'branch': 'stable' }
 Plug 'tpope/vim-dispatch'
+Plug 'nvim-lua/plenary.nvim'
 
 " Git
 Plug 'tpope/vim-fugitive'
-Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 
 " LSP
@@ -244,3 +245,44 @@ nnoremap <silent> <A-.> :BufferNext<CR>
 
 " Python formatting
 autocmd BufWritePre *.py execute ":Black"
+
+
+" Lua
+lua <<EOF
+USER = vim.fn.expand('$USER')
+
+local sumneko_root_path = ""
+local sumneko_binary = ""
+
+if vim.fn.has("mac") == 1 then
+    sumneko_root_path = "/Users/" .. USER .. "/.config/nvim/lua-language-server"
+    sumneko_binary = "/Users/" .. USER .. "/.config/nvim/lua-language-server/bin/macOS/lua-language-server"
+elseif vim.fn.has("unix") == 1 then
+    sumneko_root_path = "/home/" .. USER .. "/.config/nvim/lua-language-server"
+    sumneko_binary = "/home/" .. USER .. "/.config/nvim/lua-language-server/bin/Linux/lua-language-server"
+else
+    print("Unsupported system for sumneko")
+end
+
+require'lspconfig'.sumneko_lua.setup {
+    cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
+    settings = {
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = 'LuaJIT',
+                -- Setup your lua path
+                path = vim.split(package.path, ';')
+            },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = {'vim'}
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = {[vim.fn.expand('$VIMRUNTIME/lua')] = true, [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true}
+            }
+        }
+    }
+}
+EOF
