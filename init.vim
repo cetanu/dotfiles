@@ -32,7 +32,7 @@ Plug 'nvim-lua/plenary.nvim'
 
 " Git
 Plug 'tpope/vim-fugitive'
-Plug 'lewis6991/gitsigns.nvim'
+"Plug 'lewis6991/gitsigns.nvim'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
@@ -40,6 +40,10 @@ Plug 'nvim-lua/completion-nvim'
 Plug 'folke/lsp-colors.nvim'
 Plug 'kosayoda/nvim-lightbulb'
 Plug 'ray-x/lsp_signature.nvim'
+
+" Salt
+Plug 'saltstack/salt-vim'
+Plug 'Glench/Vim-Jinja2-Syntax'
 
 " Telescope
 Plug 'nvim-lua/popup.nvim'
@@ -54,7 +58,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 call plug#end()
 
-lua require("gitsigns").setup()
+"lua require("gitsigns").setup()
 lua require("lsp-colors").setup()
 lua require("lsp_signature").on_attach()
 autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
@@ -111,6 +115,9 @@ let g:netrw_liststyle = 3 " Tree style
 let g:netrw_banner = 0
 let g:netrw_browse_split = 2 " open new files in vsplit
 let g:netrw_winsize = 25 " slim it down
+
+" Salt
+let g:sls_use_jinja_syntax = 1
 
 " Quickscope
 let g:qs_hightlight_on_keys = ['f', 'F', 't', 'T']

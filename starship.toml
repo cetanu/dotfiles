@@ -21,7 +21,7 @@ disabled = true
 disabled = false
 
 [time]
-disabled = false
+disabled = true
 format = "[$time]($style)|"
 
 [cmd_duration]
