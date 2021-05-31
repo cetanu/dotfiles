@@ -6,7 +6,7 @@ alias grep="rg"
 
 alias vim="nvim"
 alias p="cd ~/Documents"
-alias vrc="nvim ~/.config/nvim/init.vim"
+alias vrc="nvim ~/.config/nvim/init.lua"
 alias vfi="nvim ~/.config/fish/config.fish"
 alias gitcf="git commit --amend; git push -f"
 
