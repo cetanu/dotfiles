@@ -60,14 +60,9 @@ Plug 'nvim-treesitter/playground'
 Plug 'romgrk/nvim-treesitter-context'
 call plug#end()
 
-"lua require("gitsigns").setup()
-lua require("lsp-colors").setup()
-lua require("lsp_signature").on_attach()
 autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 
-
 syntax on
-let mapleader = "\<Space>"
 
 let g:sneak#label = 1
 
@@ -83,12 +78,6 @@ inoremap <right> <nop>
 set colorcolumn=80
 highlight ColorColumn ctermbg=80 guibg=lightgrey
 
-" Netrw
-let g:netrw_liststyle = 3 " Tree style
-let g:netrw_banner = 0
-let g:netrw_browse_split = 2 " open new files in vsplit
-let g:netrw_winsize = 25 " slim it down
-
 " Salt
 let g:sls_use_jinja_syntax = 1
 
@@ -97,27 +86,6 @@ let g:qs_hightlight_on_keys = ['f', 'F', 't', 'T']
 let g:qs_max_chrs=150
 highlight QuickScopePrimary guifg='#00C7DF' gui=underline ctermfg=155 cterm=underline
 highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=81 cterm=underline
-
-
-" Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fp <cmd>Telescope file_browser cwd=~/projs<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fc <cmd>Telescope git_status<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>gd <cmd>Telescope lsp_definitions<cr>
-nnoremap <leader>gl <cmd>Telescope lsp_workspace_diagnostics<cr>
-
-" Lsp mappings
-nnoremap <leader>lr <cmd>lua vim.lsp.buf.rename()<cr>
-nnoremap <leader>lh <cmd>lua vim.lsp.buf.hover()<cr>
-nnoremap <leader>ld <cmd>lua vim.lsp.buf.references()<cr>
-nnoremap <leader>ln <cmd>lua vim.buf.diagnostic.goto_next()<cr>
-nnoremap <leader>ll <cmd>lua vim.lsp.diagnostic.set_loclist()<cr>
-
-" LSP
-set completeopt=menuone,noinsert,noselect
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
 " Buffer navigation
 nnoremap <silent> <A-,> :BufferPrevious<CR>
