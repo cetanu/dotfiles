@@ -30,6 +30,7 @@ Plug 'psf/black', { 'branch': 'stable' }
 Plug 'tpope/vim-dispatch'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'justinmk/vim-sneak'
+Plug 'folke/trouble.nvim'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -64,15 +65,6 @@ autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 
 syntax on
 
-let g:sneak#label = 1
-
-" No arrow keys --- force yourself to use the home row
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
 
 " Color Scheme
 set colorcolumn=80
@@ -86,11 +78,6 @@ let g:qs_hightlight_on_keys = ['f', 'F', 't', 'T']
 let g:qs_max_chrs=150
 highlight QuickScopePrimary guifg='#00C7DF' gui=underline ctermfg=155 cterm=underline
 highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=81 cterm=underline
-
-" Buffer navigation
-nnoremap <silent> <A-,> :BufferPrevious<CR>
-nnoremap <silent> <A-.> :BufferNext<CR>
-nnoremap <leader>T <cmd>BufferPick<CR>
 
 " Python formatting
 autocmd BufWritePre *.py execute ":Black"
