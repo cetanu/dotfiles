@@ -25,3 +25,30 @@ utils.keymap('i', '<up>', '<nop>')
 utils.keymap('i', '<down>', '<nop>')
 utils.keymap('i', '<left>', '<nop>')
 utils.keymap('i', '<right>', '<nop>')
+
+-- Make yank behave like delete/cut
+utils.keymap('n', 'Y', 'y$')
+
+-- Center after search
+utils.keymap('n', 'n', 'nzzzv')
+utils.keymap('n', 'N', 'Nzzzv')
+
+-- Don't move cursor after join
+utils.keymap('n', 'J', 'mzJ`z')
+
+-- Create new change after commas/etc
+for _, breakpoint in pairs({',', '.', '!', '?'}) do
+  utils.keymap('i', breakpoint, breakpoint..'<c-g>u')
+end
+
+-- Add vertical moves to the jumplist
+utils.keymap('n', '<expr>', 'k (v:count > 5 ? "m\'" . v:count : "") . \'k\'')
+utils.keymap('n', '<expr>', 'j (v:count > 5 ? "m\'" . v:count : "") . \'j\'')
+
+-- Moving text
+utils.keymap('v', 'J', ":m '>+1<CR>gv=gv")
+utils.keymap('v', 'K', ":m '<-2<CR>gv=gv")
+utils.keymap('i', '<C-j>', '<esc>:m .+1<CR>==')
+utils.keymap('i', '<C-k>', '<esc>:m .-2<CR>==')
+utils.keymap_leader('n', 'j', ':m .+1<CR>==')
+utils.keymap_leader('n', 'k', ':m .-2<CR>==')
