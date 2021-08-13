@@ -30,16 +30,17 @@ utils.keymap('i', '<right>', '<nop>')
 utils.keymap('n', 'Y', 'y$')
 
 -- Center after search
-utils.keymap('n', 'n', 'nzzzv')
-utils.keymap('n', 'N', 'Nzzzv')
+--utils.keymap('n', 'n', 'nzz')
+--utils.keymap('n', 'N', 'Nzz')
 
--- Don't move cursor after join
+--[[ Don't move cursor after join
 utils.keymap('n', 'J', 'mzJ`z')
 
 -- Create new change after commas/etc
 for _, breakpoint in pairs({',', '.', '!', '?'}) do
   utils.keymap('i', breakpoint, breakpoint..'<c-g>u')
 end
+]]
 
 -- Add vertical moves to the jumplist
 utils.keymap('n', '<expr>', 'k (v:count > 5 ? "m\'" . v:count : "") . \'k\'')

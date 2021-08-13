@@ -11,7 +11,6 @@ require("keybindings")
 -- Misc stuff
 vim.api.nvim_exec([[
 syntax on
-autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 autocmd BufWritePre *.py execute ":Black"
 
 set colorcolumn=80

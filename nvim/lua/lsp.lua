@@ -5,8 +5,11 @@ vim.g.completion_matching_strategy_list = {"exact", "substring", "fuzzy"}
 local has_completion, completion = pcall(require, "completion")
 local has_lsp, lspconfig = pcall(require, "lspconfig")
 if has_lsp and has_completion then
-    lspconfig.pyright.setup{ on_attach=completion.on_attach}
+    lspconfig.pyright.setup{on_attach=completion.on_attach}
+    lspconfig.bashls.setup{on_attach=completion.on_attach}
     lspconfig.rust_analyzer.setup{ on_attach=completion.on_attach}
+else
+    print('LSP: '..tostring(has_lsp)..' Completion: '..tostring(has_completion))
 end
 
 utils.keymap_leader('n', 'lr', 'lua vim.lsp.buf.rename()')

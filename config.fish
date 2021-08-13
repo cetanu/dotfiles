@@ -9,6 +9,9 @@ alias p="cd ~/Documents"
 alias vrc="nvim ~/.config/nvim/init.lua"
 alias vfi="nvim ~/.config/fish/config.fish"
 alias gitcf="git commit --amend; git push -f"
+alias gitp="git checkout master; git pull"
+alias gitr="git reset --hard HEAD"
+alias gits="git status"
 
 # Docker
 alias dkill="docker ps -qa | xargs docker kill"
