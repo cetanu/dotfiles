@@ -19,8 +19,8 @@ alias drm="docker ps -qa | xargs docker rm"
 alias drmi="docker images -qa | xargs docker rmi -f"
 alias dkara="dkill; drm; drmi"
 
-set TMUX_CONFIG "~/.config/tmux/.tmux.conf"
-alias tn="tmux -u -f $TMUX_CONFIG new"
+set TMUX_CONFIG "$HOME/.config/tmux/.tmux.conf"
+alias tn="tmux kill-server; tmux -u -f $TMUX_CONFIG new"
 alias ta="tmux -u -f $TMUX_CONFIG attach"
 alias tt="nvim $TMUX_CONFIG"
 
