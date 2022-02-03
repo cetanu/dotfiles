@@ -19,7 +19,7 @@ local use = require('packer').use
 require('packer').startup(function()
   use 'wbthomason/packer.nvim' -- Package manager
   use 'tpope/vim-fugitive' -- Git commands in nvim
-  use 'tpope/vim-commentary' -- "gc" to comment visual regions/lines
+  use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
   -- UI to select things (files, grep results, open buffers...)
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   use 'itchyny/lightline.vim' -- Fancier statusline
@@ -27,18 +27,20 @@ require('packer').startup(function()
   use 'lukas-reineke/indent-blankline.nvim'
   -- Add git related info in the signs columns and popups
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
-  -- Highlight, edit, and navigate code using a fast incremental parsing library
+  -- Treesitter
   use 'nvim-treesitter/nvim-treesitter'
-  -- Additional textobjects for treesitter
   use 'nvim-treesitter/nvim-treesitter-textobjects'
-  use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
+  -- Completion
   use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
+  use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-nvim-lua'
   use 'saadparwaiz1/cmp_luasnip'
-  use 'L3MON4D3/LuaSnip' -- Snippets plugin
-  -- Langs
+  -- Snippets plugin
+  use 'L3MON4D3/LuaSnip'
+  -- LSP / Language support
+  use 'neovim/nvim-lspconfig'
   use {'cespare/vim-toml', branch = 'main'}
-  use 'fladson/vim-kitty'
   -- Lsp extensions
   use 'kyazdani42/nvim-web-devicons'
   use 'simrat39/symbols-outline.nvim'
@@ -46,6 +48,8 @@ require('packer').startup(function()
   use 'folke/tokyonight.nvim'
   use 'theniceboy/nvim-deus'
 end)
+
+require('Comment').setup()
 
 -- Colorscheme
 vim.cmd[[colorscheme deus]]
@@ -143,8 +147,7 @@ vim.api.nvim_set_keymap('n', '<leader>vrc', [[<cmd>lua require('telescope.builti
 vim.api.nvim_set_keymap('n', '<leader>sb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>st', [[<cmd>lua require('telescope.builtin').tags()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sd', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sd', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
 
@@ -228,12 +231,9 @@ local on_attach = function(_, bufnr)
   vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 end
 
--- nvim-cmp supports additional completion capabilities
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- Enable the following language servers
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
+local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'yamlls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -285,6 +285,11 @@ vim.o.completeopt = 'menuone,noselect'
 local luasnip = require 'luasnip'
 
 -- nvim-cmp setup
+--
+-- nvim-cmp supports additional completion capabilities
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
 local cmp = require 'cmp'
 cmp.setup {
   snippet = {
@@ -293,90 +298,29 @@ cmp.setup {
     end,
   },
   mapping = {
+    -- Selection items from the completion box
     ['<C-p>'] = cmp.mapping.select_prev_item(),
     ['<C-n>'] = cmp.mapping.select_next_item(),
+    -- For scrolling up and down within completion box
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
+    -- Closes the completion box
     ['<C-e>'] = cmp.mapping.close(),
+    -- Writes the selected option at the cursor position
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
-    ['<Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end,
-    ['<S-Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end,
   },
   sources = {
+    { name = 'nvim_lua' },
     { name = 'nvim_lsp' },
+    { name = 'path' },
     { name = 'luasnip' },
+    { name = 'buffer', keyword_length = 5 },
   },
-}
-
-
--- symbols outline
-vim.g.symbols_outline = {
-    highlight_hovered_item = true,
-    show_guides = true,
-    auto_preview = true,
-    position = 'right',
-    width = 25,
-    show_numbers = false,
-    show_relative_numbers = false,
-    show_symbol_details = true,
-    preview_bg_highlight = 'Pmenu',
-    keymaps = { -- These keymaps can be a string or a table for multiple keys
-        close = {"<Esc>", "q"},
-        goto_location = "<Cr>",
-        focus_location = "o",
-        hover_symbol = "<C-space>",
-        toggle_preview = "K",
-        rename_symbol = "r",
-        code_actions = "a",
-    },
-    lsp_blacklist = {},
-    symbol_blacklist = {},
-    symbols = {
-        File = {icon = "", hl = "TSURI"},
-        Module = {icon = "", hl = "TSNamespace"},
-        Namespace = {icon = "", hl = "TSNamespace"},
-        Package = {icon = "", hl = "TSNamespace"},
-        Class = {icon = "𝓒", hl = "TSType"},
-        Method = {icon = "ƒ", hl = "TSMethod"},
-        Property = {icon = "", hl = "TSMethod"},
-        Field = {icon = "", hl = "TSField"},
-        Constructor = {icon = "", hl = "TSConstructor"},
-        Enum = {icon = "ℰ", hl = "TSType"},
-        Interface = {icon = "ﰮ", hl = "TSType"},
-        Function = {icon = "", hl = "TSFunction"},
-        Variable = {icon = "", hl = "TSConstant"},
-        Constant = {icon = "", hl = "TSConstant"},
-        String = {icon = "𝓐", hl = "TSString"},
-        Number = {icon = "#", hl = "TSNumber"},
-        Boolean = {icon = "⊨", hl = "TSBoolean"},
-        Array = {icon = "", hl = "TSConstant"},
-        Object = {icon = "⦿", hl = "TSType"},
-        Key = {icon = "🔐", hl = "TSType"},
-        Null = {icon = "NULL", hl = "TSType"},
-        EnumMember = {icon = "", hl = "TSField"},
-        Struct = {icon = "𝓢", hl = "TSType"},
-        Event = {icon = "🗲", hl = "TSType"},
-        Operator = {icon = "+", hl = "TSOperator"},
-        TypeParameter = {icon = "𝙏", hl = "TSParameter"}
-    }
+  experimental = {
+    native_menu = false,
+    ghost_text = true,
+  }
 }

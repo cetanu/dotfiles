@@ -3,6 +3,7 @@ alias ls="exa"
 alias ll="exa -l"
 alias cat="bat"
 alias grep="rg"
+alias dig="/usr/local/bin/dog"
 
 alias vim="nvim"
 alias p="cd ~/Documents"
