@@ -1,10 +1,10 @@
 #!/usr/bin/env fish
 mkdir -p ~/.config/nvim
-ln -f nvim/init.lua ~/.config/nvim/init.lua 2>/dev/null; and echo "nvim config installed"
+ln -f nvim/init.lua ~/.config/nvim/init.lua 2>/dev/null; and echo "nvim init installed"
 ln -f nvim/old_config.vim ~/.config/nvim/old_config.vim 2>/dev/null
-rm -rf ~/.config/nvim/lua
-#mkdir -p ~/.config/nvim/lua
-#ln -fs (pwd)/nvim/lua/* ~/.config/nvim/lua/ 2>/dev/null
+rm -rf ~/.config/nvim/lua/vsy
+mkdir -p ~/.config/nvim/lua/vsy
+ln -fs (pwd)/nvim/vsy/* ~/.config/nvim/lua/vsy/ 2>/dev/null; and echo "nvim modules installed"
 
 mkdir -p ~/.config/fish
 ln -f config.fish ~/.config/fish/config.fish 2>/dev/null; and echo "fish config installed"
