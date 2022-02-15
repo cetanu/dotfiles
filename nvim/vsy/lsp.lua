@@ -1,3 +1,6 @@
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
 vim.opt.completeopt = {"menu", "menuone", "noselect"}
 
 local nvim_lsp = require 'lspconfig'
@@ -15,7 +18,7 @@ local on_attach = function()
 end
 
 -- Enable the following language servers
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'yamlls' }
+local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'yamlls', 'jsonls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -48,6 +51,11 @@ require('lspconfig').sumneko_lua.setup {
         telemetry = {
             enable = false,
         },
+        diagnostics = {
+            globals = { 'vim' }
+        },
       }
     }
 }
+
+require"fidget".setup{}
