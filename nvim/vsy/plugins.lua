@@ -45,19 +45,13 @@ end)
 
 
 -- Assorted plugins that don't need their own module
-vim.highlight.create('GitGutterAdd', {ctermbg=0, guifg='green'}, false)
-vim.highlight.create('GitGutterChange', {ctermbg=0, guifg='orange'}, false)
-vim.highlight.create('GitGutterDelete', {ctermbg=0, guifg='red'}, false)
-
-require('gitsigns').setup()
-
 local neogit = require("neogit")
-
 neogit.setup{
     integrations = {
         diffview = true
     }
 }
 
+require('gitsigns').setup()
 require('Comment').setup()
 
