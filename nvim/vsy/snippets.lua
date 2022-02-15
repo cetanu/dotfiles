@@ -1,6 +1,25 @@
+--
+-- Imports
+--
 local ls = require 'luasnip'
 local types = require 'luasnip.util.types'
 
+local s = ls.s -- snippet creator shortcut
+local fmt = require("luasnip.extras.fmt").fmt
+
+-- Insert Node
+-- i(<position>, [default_text])
+local i = ls.insert_node
+local t = ls.text_node
+
+-- Repeats a node
+-- rep(<position>)
+local rep = require("luasnip.extras").rep
+
+
+--
+-- Keymaps
+--
 ls.config.set_config {
     history = true,
     updateevents = "TextChanged,TextChangedI",
@@ -27,9 +46,25 @@ end, { silent = true })
 -- reload snippets
 CMD_KEYMAP("n", "<leader><leader>s", "source ~/.config/nvim/after/plugin/luasnip.lua")
 
+--
+-- Snippets
+--
 ls.snippets = {
     all = {},
+    lua = {},
     python = {
         ls.parser.parse_snippet("fn", "def $1($2) -> $3:\n    $0"),
+        s(
+            "def",
+            fmt(
+                "def {}({}) -> {}:\n    {}",
+                {
+                    i(1),
+                    i(2),
+                    t("None"),
+                    t("pass"),
+                }
+            )
+        ),
     }
 }
