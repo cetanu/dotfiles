@@ -4,7 +4,7 @@ require('packer').startup(function()
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
 
   -- UI to select things (files, grep results, open buffers...)
-  use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+  use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim', 'BurntSushi/ripgrep' } }
   use 'LinArcX/telescope-command-palette.nvim'
 
   -- Add indentation guides even on blank lines
