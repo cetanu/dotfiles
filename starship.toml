@@ -6,10 +6,6 @@ $git_branch\
 $git_commit\
 $git_state\
 $git_status\
-$python\
-$lua\
-$shell\
-$rust\
 $cmd_duration\
 \n$character
 """

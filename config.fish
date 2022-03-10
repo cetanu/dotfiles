@@ -13,6 +13,7 @@ alias gitcf="git commit --amend; git push -f"
 alias gitp="git checkout master; git pull"
 alias gitr="git reset --hard HEAD"
 alias gits="git status"
+alias pr="cat ~/pr.md | pbcopy"
 
 # Docker
 alias dkill="docker ps -qa | xargs docker kill"
