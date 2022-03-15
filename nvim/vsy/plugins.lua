@@ -34,6 +34,8 @@ require('packer').startup(function()
   use 'neovim/nvim-lspconfig'
   use {'cespare/vim-toml', branch = 'main'}
   use 'j-hui/fidget.nvim' -- fancy LSP UI elements
+  use 'lepture/vim-jinja'
+  use 'onsails/lspkind-nvim'
 
   -- Theme
   use 'rebelot/kanagawa.nvim'
@@ -55,3 +57,4 @@ neogit.setup{
 require('gitsigns').setup()
 require('Comment').setup()
 
+vim.cmd('au BufNewFile,BufRead *.sls set ft=jinja')
