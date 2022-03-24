@@ -11,6 +11,8 @@ local fmt = require("luasnip.extras.fmt").fmt
 -- i(<position>, [default_text])
 local i = ls.insert_node
 local t = ls.text_node
+local f = ls.function_node
+local c = ls.choice_node
 
 -- Repeats a node
 -- rep(<position>)
@@ -50,21 +52,14 @@ CMD_KEYMAP("n", "<leader><leader>s", "source ~/.config/nvim/after/plugin/luasnip
 -- Snippets
 --
 ls.snippets = {
-    all = {},
-    lua = {},
-    python = {
-        ls.parser.parse_snippet("fn", "def $1($2) -> $3:\n    $0"),
+    all = {
         s(
-            "def",
-            fmt(
-                "def {}({}) -> {}:\n    {}",
-                {
-                    i(1),
-                    i(2),
-                    t("None"),
-                    t("pass"),
-                }
-            )
+            "curdate",
+            f(function()
+                return os.date "%d/%m/%Y"
+            end)
         ),
-    }
+    },
+    lua = {},
+    python = {}
 }
