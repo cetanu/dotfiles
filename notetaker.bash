@@ -1,6 +1,7 @@
 #!/bin/sh
 
-filename="${HOME}/Documents/journal/$(date +%Y-%m-%d).md"
+journals="${HOME}/Documents/journal"
+filename="${journals}/$(date +%Y-%m-%d).md"
 
 if [ ! -f $filename ]; then
     echo "# $(date +%Y-%m-%d)" > $filename
@@ -11,3 +12,8 @@ nvim -c "norm Go" \
     -c "norm G2o" \
     -c "norm zz" \
     -c "startinsert" $filename
+
+cd ${journals}
+git add -A
+git commit -am "$(date +%s)"
+git push
