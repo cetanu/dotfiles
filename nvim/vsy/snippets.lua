@@ -54,12 +54,33 @@ CMD_KEYMAP("n", "<leader><leader>s", "source ~/.config/nvim/after/plugin/luasnip
 ls.snippets = {
     all = {
         s(
+            "changebatch",
+            fmt(
+                [[
+                  "Action": "UPSERT",
+                  "ResourceRecordSet": {{
+                    "Name": "{}",
+                    "Type": "A",
+                    "TTL": 60,
+                    "ResourceRecords": [
+                      {{
+                        "Value": "{}"
+                      }}
+                    ]
+                  }}
+                ]],
+                {i(1), i(2)}
+            )
+        )
+    },
+    lua = {},
+    python = {
+        ls.parser.parse_snippet("fn", "def $1($2) -> $3:\n    $0"),
+        s(
             "curdate",
             f(function()
                 return os.date "%d/%m/%Y"
             end)
         ),
     },
-    lua = {},
-    python = {}
 }

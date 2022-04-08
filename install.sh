@@ -17,3 +17,5 @@ ln -f alacritty.yml ~/.config/alacritty/alacritty.yml 2>/dev/null; and echo "ala
 
 mkdir -p ~/.config/starship
 ln -f starship.toml ~/.config/starship/starship.toml 2>/dev/null; and echo "starship config installed"
+
+ln -f notetaker.bash /usr/local/bin/notetaker 2>/dev/null; and echo "note script installed"

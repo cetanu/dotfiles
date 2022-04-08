@@ -2,6 +2,7 @@ local use = require('packer').use
 require('packer').startup(function()
   use 'wbthomason/packer.nvim' -- Package manager
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
+  use 'ellisonleao/glow.nvim' -- cool markdown preview
 
   -- UI to select things (files, grep results, open buffers...)
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim', 'BurntSushi/ripgrep' } }

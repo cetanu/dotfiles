@@ -89,7 +89,7 @@ require('lspconfig').sumneko_lua.setup {
             enable = false,
         },
         diagnostics = {
-            globals = { 'vim', "envoy_on_response", "envoy_on_request" }
+            globals = { 'vim', "envoy_on_response", "envoy_on_request", "ngx" }
         },
       }
     }
