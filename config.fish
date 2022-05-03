@@ -21,6 +21,10 @@ alias drm="docker ps -qa | xargs docker rm"
 alias drmi="docker images -qa | xargs docker rmi -f"
 alias dkara="dkill; drm; drmi"
 
+# Zellij
+set ZELLIJ_CONFIG "$HOME/Documents/dotfiles/zellij.yaml"
+alias zn="zellij --config $ZELLIJ_CONFIG"
+
 set TMUX_CONFIG "$HOME/.config/tmux/.tmux.conf"
 alias tn="tmux kill-server; tmux -u -f $TMUX_CONFIG new"
 alias ta="tmux -u -f $TMUX_CONFIG attach"

@@ -1,4 +1,8 @@
 #!/usr/bin/env fish
+
+
+
+
 mkdir -p ~/.config/nvim
 ln -f nvim/init.lua ~/.config/nvim/init.lua 2>/dev/null; and echo "nvim init installed"
 ln -f nvim/old_config.vim ~/.config/nvim/old_config.vim 2>/dev/null
