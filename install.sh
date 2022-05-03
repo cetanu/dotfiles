@@ -1,8 +1,4 @@
 #!/usr/bin/env fish
-
-
-
-
 mkdir -p ~/.config/nvim
 ln -f nvim/init.lua ~/.config/nvim/init.lua 2>/dev/null; and echo "nvim init installed"
 ln -f nvim/old_config.vim ~/.config/nvim/old_config.vim 2>/dev/null
@@ -23,3 +19,5 @@ mkdir -p ~/.config/starship
 ln -f starship.toml ~/.config/starship/starship.toml 2>/dev/null; and echo "starship config installed"
 
 ln -f notetaker.bash /usr/local/bin/notetaker 2>/dev/null; and echo "note script installed"
+
+grep delta ~/.gitconfig; or cat gitconfig >> ~/.gitconfig

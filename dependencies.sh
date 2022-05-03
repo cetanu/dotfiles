@@ -2,11 +2,10 @@
 
 # Homebrew
 [[ -f $(which brew) ]] || curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | sh
+if [[ $? ]]; then
+    brew update
+fi
 echo "Homebrew installed"
-
-# Fish shell
-[[ -f $(which fish) ]] || brew install fish
-echo "Fish installed"
 
 # Rust toolchain
 [[ -f $(which rustup) ]] || curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -25,7 +24,7 @@ RUST_PKGS=(
     zargs
     starship
     zellij
-    xxv
+    git-interactive-rebase-tool
 )
 for pkg in ${RUST_PKGS[@]}; do
     INSTALLED=$(cargo install --list | grep ${pkg})
@@ -38,3 +37,11 @@ echo "Rust utils installed"
 # Neovim
 [[ -f $(which nvim) ]] || brew install neovim
 echo "Neovim installed"
+
+# Fish shell
+[[ -f $(which fish) ]] || brew install fish
+echo "Fish installed"
+
+# pyenv
+[[ -f $(which pyenv) ]] || brew install pyenv
+echo "Pyenv installed"

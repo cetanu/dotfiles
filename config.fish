@@ -7,8 +7,6 @@ alias dig="/usr/local/bin/dog"
 
 alias vim="nvim"
 alias p="cd ~/Documents"
-alias vrc="nvim ~/.config/nvim/init.lua"
-alias vfi="nvim ~/.config/fish/config.fish"
 alias gitcf="git commit --amend; git push -f"
 alias gitp="git checkout master; git pull"
 alias gitr="git reset --hard HEAD"
@@ -24,11 +22,6 @@ alias dkara="dkill; drm; drmi"
 # Zellij
 set ZELLIJ_CONFIG "$HOME/Documents/dotfiles/zellij.yaml"
 alias zn="zellij --config $ZELLIJ_CONFIG"
-
-set TMUX_CONFIG "$HOME/.config/tmux/.tmux.conf"
-alias tn="tmux kill-server; tmux -u -f $TMUX_CONFIG new"
-alias ta="tmux -u -f $TMUX_CONFIG attach"
-alias tt="nvim $TMUX_CONFIG"
 
 status is-login; and pyenv init --path | source
 pyenv init - | source 1>/dev/null
