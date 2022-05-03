@@ -42,6 +42,46 @@ echo "Neovim installed"
 [[ -f $(which fish) ]] || brew install fish
 echo "Fish installed"
 
+
 # pyenv
 [[ -f $(which pyenv) ]] || brew install pyenv
 echo "Pyenv installed"
+PY_VERSIONS=(
+    3.9.0
+    3.10.0
+    3.11.0
+)
+for ver in ${PY_VERSIONS[@]}; do
+    INSTALLED=$(pyenv versions | grep ${ver})
+    if [[ ! ${INSTALLED} ]]; then
+        echo "Installing Python ${ver}"
+        pyenv install ${ver}
+    else
+        echo "Python ${ver} installed"
+    fi
+done
+
+
+# NPM
+[[ -f $(which npm) ]] || brew install node
+echo "Node.js and NPM installed"
+
+# Language servers
+NODE_LSPS=(
+    pyright
+    bash-language-server
+    yaml-language-server
+)
+for lsp in ${NODE_LSPS[@]}; do
+    INSTALLED=$(npm list -g | grep ${lsp})
+    if [[ ! ${INSTALLED} ]]; then
+        echo "Installing LSP ${ver}"
+        npm install -g ${lsp}
+    else
+        echo "LSP ${lsp} installed"
+    fi
+done
+# rust-analyzer
+[[ -f $(which rust-analyzer) ]] || brew install rust-analyzer
+echo "rust-analyzer installed"
+
