@@ -17,17 +17,22 @@ require('packer').startup(function()
       end
     }
 
+  -- Terminal support
+  use {"akinsho/toggleterm.nvim", tag = 'v1.*', config = function()
+    require("toggleterm").setup()
+  end}
+
   -- Add indentation guides even on blank lines
   use 'lukas-reineke/indent-blankline.nvim'
 
   -- Add git related info in the signs columns and popups
   use 'TimUntersberger/neogit'
-  use 'tpope/vim-fugitive' -- Git commands in nvim
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' }, config = function() require('gitsigns').setup() end }
   use { 'sindrets/diffview.nvim', requires =  { 'nvim-lua/plenary.nvim' } }
 
   -- Treesitter
   use 'nvim-treesitter/nvim-treesitter'
+  use 'nvim-treesitter/nvim-treesitter-context'
   use 'nvim-treesitter/nvim-treesitter-textobjects'
 
   -- Completion
@@ -48,6 +53,9 @@ require('packer').startup(function()
   use 'lepture/vim-jinja'
   use 'onsails/lspkind-nvim'
 
+  -- JSON viewer
+  use 'gennaro-tedesco/nvim-jqx'
+
   -- Code and diagnostic navigation
   use {
     'stevearc/aerial.nvim',
@@ -57,6 +65,7 @@ require('packer').startup(function()
   -- Theme
   use 'rebelot/kanagawa.nvim'
   use 'itchyny/lightline.vim' -- Fancier statusline
+  use 'yashguptaz/calvera-dark.nvim'
 
   -- Startup speed
   use 'lewis6991/impatient.nvim'
@@ -70,5 +79,4 @@ neogit.setup{
         diffview = true
     }
 }
-
-vim.cmd('au BufNewFile,BufRead *.sls set ft=jinja')
+require("toggleterm").setup()

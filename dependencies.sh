@@ -1,14 +1,19 @@
 #!/bin/bash
 
 # Homebrew
-[[ -f $(which brew) ]] || curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | sh
-if [[ $? ]]; then
+if [[ ! -f $(which brew) ]]; then
+    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
     brew update
 fi
 echo "Homebrew installed"
 
 # Rust toolchain
-[[ -f $(which rustup) ]] || curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+if [[ -f $(which rustup) ]]; then
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    rustup toolchain install stable
+fi
 echo "Rustup installed"
 
 # Rust utils

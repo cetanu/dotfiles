@@ -19,5 +19,3 @@ mkdir -p ~/.config/starship
 ln -f starship.toml ~/.config/starship/starship.toml 2>/dev/null; and echo "starship config installed"
 
 ln -f notetaker.bash /usr/local/bin/notetaker 2>/dev/null; and echo "note script installed"
-
-grep delta ~/.gitconfig; or cat gitconfig >> ~/.gitconfig

@@ -3,7 +3,7 @@ alias ls="exa"
 alias ll="exa -l"
 alias cat="bat"
 alias grep="rg"
-alias dig="/usr/local/bin/dog"
+alias dig="dog"
 
 alias vim="nvim"
 alias p="cd ~/Documents"
@@ -23,12 +23,14 @@ alias dkara="dkill; drm; drmi"
 set ZELLIJ_CONFIG "$HOME/Documents/dotfiles/zellij.yaml"
 alias zn="zellij --config $ZELLIJ_CONFIG"
 
-status is-login; and pyenv init --path | source
-pyenv init - | source 1>/dev/null
-
 set PATH "$HOME/.cargo/bin:$PATH"
 set PATH "$HOME/.local/bin:$PATH"
 set PATH "$HOME/.poetry/bin:$PATH"
+set PATH "$HOME/go/bin:$PATH"
+set PATH "/opt/homebrew/bin:$PATH"
+
+status is-login; and pyenv init --path | source
+pyenv init - | source 1>/dev/null
 
 if test -e "$HOME/.config/cloudtoken/bashrc_additions"
     source "$HOME/.config/cloudtoken/bashrc_additions"
