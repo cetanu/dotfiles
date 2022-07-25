@@ -1,6 +1,6 @@
 hey
 ===
 
-What are you looking at (:
+welcome to my dotfiles
 
-<img src="https://github.com/cetanu/dotfiles/blob/master/myface.jpeg">
+feel free to submit an issue if you have any questions
