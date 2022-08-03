@@ -17,7 +17,7 @@ local filetype_attach = setmetatable({
 })
 
 local nvim_lsp = require 'lspconfig'
-local on_attach = function(client)
+local on_attach = function(client, bufnr)
     local filetype = vim.api.nvim_buf_get_option(0, "filetype")
 
     LUA_KEYMAP('n', 'K',          'vim.lsp.buf.hover')
@@ -32,6 +32,8 @@ local on_attach = function(client)
     CMD_KEYMAP('n', '<leader>dl', 'Telescope diagnostics')
 
     filetype_attach[filetype](client)
+
+    require("aerial").on_attach(client, bufnr)
 end
 
 
