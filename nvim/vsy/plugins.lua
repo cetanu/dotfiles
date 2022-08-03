@@ -26,7 +26,14 @@ require('packer').startup(function()
   use 'lukas-reineke/indent-blankline.nvim'
 
   -- Add git related info in the signs columns and popups
-  use 'TimUntersberger/neogit'
+  use { 'TimUntersberger/neogit', config = function()
+        require("neogit").setup{
+            integrations = {
+                diffview = true
+            }
+        }
+    end
+  }
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' }, config = function() require('gitsigns').setup() end }
   use { 'sindrets/diffview.nvim', requires =  { 'nvim-lua/plenary.nvim' } }
 
@@ -52,6 +59,13 @@ require('packer').startup(function()
   use 'j-hui/fidget.nvim' -- fancy LSP UI elements
   use 'lepture/vim-jinja'
   use 'onsails/lspkind-nvim'
+  use({
+    "simrat39/rust-tools.nvim",
+    config = function()
+      require("rust-tools").setup({})
+    end,
+    requires = { "neovim/nvim-lspconfig" },
+  })
 
   -- JSON viewer
   use 'gennaro-tedesco/nvim-jqx'
@@ -71,12 +85,9 @@ require('packer').startup(function()
   use 'lewis6991/impatient.nvim'
 end)
 
+-- everytime plugins.lua is written, we need to auto-run PackerCompile
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  command = "source <afile> | PackerCompile",
+  pattern = { "plugins.lua" },
+})
 
--- Assorted plugins that don't need their own module
-local neogit = require("neogit")
-neogit.setup{
-    integrations = {
-        diffview = true
-    }
-}
-require("toggleterm").setup()
