@@ -16,7 +16,8 @@ require'nvim-treesitter.configs'.setup {
         "rust",
         "toml",
         "yaml",
-        "kotlin"
+        "kotlin",
+        "markdown",
     },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)

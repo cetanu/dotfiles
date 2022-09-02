@@ -11,7 +11,7 @@ scrolling:
   history: 20000
 
 font:
-  family: SpaceMono Nerd Font Mono
+  family: Space Mono Nerd Font Complete Mono
   size: 12.0
   use_thin_strokes: true
 

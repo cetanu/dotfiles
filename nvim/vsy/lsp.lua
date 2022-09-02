@@ -34,6 +34,7 @@ local on_attach = function(client, bufnr)
     filetype_attach[filetype](client)
 
     require("aerial").on_attach(client, bufnr)
+    require("virtualtypes").on_attach()
 end
 
 
@@ -98,3 +99,8 @@ require('lspconfig').sumneko_lua.setup {
 }
 
 require"fidget".setup{}
+
+-- require("lsp_lines").setup()
+-- vim.diagnostic.config({
+--     virtual_text = false,
+-- })

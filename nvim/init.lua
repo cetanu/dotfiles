@@ -23,12 +23,12 @@ end
 require 'vsy.plugins'
 require 'vsy.options'
 require 'vsy.keymaps'
-require 'vsy.statusbar'
 require 'vsy.treesitter'
 require 'vsy.lsp'
 require 'vsy.telescope'
 require 'vsy.snippets'
 require 'vsy.completion'
+require 'vsy.statusline'
 
 
 vim.cmd("colorscheme kanagawa")
