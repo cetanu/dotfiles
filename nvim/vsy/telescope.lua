@@ -16,6 +16,7 @@ telescope.setup {
             { "Diagnostics", ":Telescope diagnostics" },
             { "Dotfiles", ":lua require('telescope.builtin').find_files({cwd = '~/Documents/dotfiles'})" },
             { "Projects", ":Telescope projects" },
+            { "Project-wide Search", ":lua require('telescope.builtin').live_grep({cwd = '~/Documents'})" },
             { "Grep", ":Telescope live_grep" },
             { "Files", ":Telescope find_files" },
         },

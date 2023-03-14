@@ -1,9 +1,22 @@
-local use = require("packer").use
-require("packer").startup(function()
-	use("wbthomason/packer.nvim") -- Package manager
-	use({
+-- Install package manager
+local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system {
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
+    lazypath,
+  }
+end
+vim.opt.rtp:prepend(lazypath)
+
+
+require("lazy").setup({
+	{
 		"folke/todo-comments.nvim",
-		requires = "nvim-lua/plenary.nvim",
+		dependencies = "nvim-lua/plenary.nvim",
 		config = function()
 			require("todo-comments").setup({
 				-- your configuration comes here
@@ -11,24 +24,28 @@ require("packer").startup(function()
 				-- refer to the configuration section below
 			})
 		end,
-	})
-	use({
+	},
+	{
 		"numToStr/Comment.nvim",
 		config = function()
 			require("Comment").setup()
 		end,
-	}) -- "gc" to comment visual regions/lines
-	use({
+	}, -- "gc" to comment visual regions/lines
+	{
 		"gelguy/wilder.nvim",
 		config = function()
 			-- config goes here
 		end,
-	})
+	},
 
 	-- UI to select things (files, grep results, open buffers...)
-	use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim", "BurntSushi/ripgrep" } })
-	use("LinArcX/telescope-command-palette.nvim")
-	use({
+    {
+      'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    -- or                            , branch = '0.1.x',
+      dependencies = { {'nvim-lua/plenary.nvim'} }
+    },
+	"LinArcX/telescope-command-palette.nvim",
+	{
 		"ahmedkhalf/project.nvim",
 		config = function()
 			require("project_nvim").setup({
@@ -37,22 +54,13 @@ require("packer").startup(function()
 				-- refer to the configuration section below
 			})
 		end,
-	})
-
-	-- Terminal support
-	use({
-		"akinsho/toggleterm.nvim",
-		tag = "v1.*",
-		config = function()
-			require("toggleterm").setup()
-		end,
-	})
+	},
 
 	-- Add indentation guides even on blank lines
-	use("lukas-reineke/indent-blankline.nvim")
+	"lukas-reineke/indent-blankline.nvim",
 
 	-- Add git related info in the signs columns and popups
-	use({
+	{
 		"TimUntersberger/neogit",
 		config = function()
 			require("neogit").setup({
@@ -61,53 +69,53 @@ require("packer").startup(function()
 				},
 			})
 		end,
-	})
-	use({
+	},
+	{
 		"lewis6991/gitsigns.nvim",
-		requires = { "nvim-lua/plenary.nvim" },
+		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("gitsigns").setup()
 		end,
-	})
-	use({ "sindrets/diffview.nvim", requires = { "nvim-lua/plenary.nvim" } })
+	},
+	{ "sindrets/diffview.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
 
 	-- Treesitter
-	use("nvim-treesitter/nvim-treesitter")
-	use("nvim-treesitter/nvim-treesitter-context")
-	use("nvim-treesitter/nvim-treesitter-textobjects")
+	"nvim-treesitter/nvim-treesitter",
+	"nvim-treesitter/nvim-treesitter-context",
+	"nvim-treesitter/nvim-treesitter-textobjects",
 
 	-- Completion
-	use("hrsh7th/cmp-nvim-lsp")
-	use("hrsh7th/cmp-buffer")
-	use("hrsh7th/cmp-path")
-	use("hrsh7th/cmp-cmdline")
-	use("hrsh7th/nvim-cmp")
-	use("saadparwaiz1/cmp_luasnip")
+	"hrsh7th/cmp-nvim-lsp",
+	"hrsh7th/cmp-buffer",
+	"hrsh7th/cmp-path",
+	"hrsh7th/cmp-cmdline",
+	"hrsh7th/nvim-cmp",
+	"saadparwaiz1/cmp_luasnip",
 
 	-- Snippets plugin
-	use("L3MON4D3/LuaSnip")
+	"L3MON4D3/LuaSnip",
 
 	-- LSP / Language support
-	use("neovim/nvim-lspconfig")
-	use({ "cespare/vim-toml", branch = "main" })
-	use("j-hui/fidget.nvim") -- fancy LSP UI elements
-	use("lepture/vim-jinja")
-	use("onsails/lspkind-nvim")
-	use({
+	"neovim/nvim-lspconfig",
+	{ "cespare/vim-toml", branch = "main" },
+	"j-hui/fidget.nvim", -- fancy LSP UI elements
+	"lepture/vim-jinja",
+	"onsails/lspkind-nvim",
+	{
 		"simrat39/rust-tools.nvim",
 		config = function()
 			require("rust-tools").setup({})
 		end,
-		requires = { "neovim/nvim-lspconfig" },
-	})
-	use({
+		dependencies = { "neovim/nvim-lspconfig" },
+	},
+	{
 		"AckslD/nvim-FeMaco.lua",
 		config = 'require("femaco").setup()',
-	})
+	},
 	-- LSP diagnostics
-	use({
+	{
 		"folke/trouble.nvim",
-		requires = "kyazdani42/nvim-web-devicons",
+		dependencies = "kyazdani42/nvim-web-devicons",
 		config = function()
 			require("trouble").setup({
 				-- your configuration comes here
@@ -115,9 +123,9 @@ require("packer").startup(function()
 				-- refer to the configuration section below
 			})
 		end,
-	})
+	},
 	-- LSP auto refreshing docs view
-	use({
+	{
 		"amrbashir/nvim-docs-view",
 		opt = true,
 		cmd = { "DocsViewToggle" },
@@ -126,9 +134,9 @@ require("packer").startup(function()
 				position = "bottom",
 			})
 		end,
-	})
+	},
 	-- LSP diagnostic lines
-	-- use({
+	-- {
 	-- 	"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
 	-- 	config = function()
 	-- 		require("lsp_lines").setup()
@@ -136,34 +144,38 @@ require("packer").startup(function()
 	-- })
 
 	-- JSON viewer
-	use("gennaro-tedesco/nvim-jqx")
+	"gennaro-tedesco/nvim-jqx",
 
 	-- Code and diagnostic navigation
-	use({
+	{
 		"stevearc/aerial.nvim",
 		config = function()
 			require("aerial").setup()
 		end,
-	})
-	use("jubnzv/virtual-types.nvim")
+	},
+	"jubnzv/virtual-types.nvim",
 
 	-- Theme
-	use("rebelot/kanagawa.nvim")
-	use("folke/tokyonight.nvim")
-	use("yashguptaz/calvera-dark.nvim")
-	use("kaiuri/nvim-juliana")
+	"rebelot/kanagawa.nvim",
+	"folke/tokyonight.nvim",
+	"yashguptaz/calvera-dark.nvim",
+	"kaiuri/nvim-juliana",
+    {
+      'glepnir/zephyr-nvim',
+      dependencies = { 'nvim-treesitter/nvim-treesitter', opt = true },
+    },
 
 	-- Status line
-	use("tjdevries/express_line.nvim")
+	"tjdevries/express_line.nvim",
 
 	-- Startup speed
-	use("lewis6991/impatient.nvim")
-end)
+	"lewis6991/impatient.nvim",
 
--- everytime plugins.lua is written, we need to auto-run PackerCompile
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-	command = "source <afile> | PackerCompile",
-	pattern = { "plugins.lua" },
+    --- Edit file tree as a text file
+    {
+      'stevearc/oil.nvim',
+      config = function() require('oil').setup() end
+    }
 })
 
 local wilder = require("wilder")

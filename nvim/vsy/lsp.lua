@@ -1,5 +1,4 @@
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local filetype_attach = setmetatable({
   rust = function()
@@ -33,7 +32,6 @@ local on_attach = function(client, bufnr)
 
     filetype_attach[filetype](client)
 
-    require("aerial").on_attach(client, bufnr)
     require("virtualtypes").on_attach()
 end
 
@@ -48,7 +46,7 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-nvim_lsp.rust_analyzer.setup({
+nvim_lsp.rust_analyzer.setup {
     on_attach=on_attach,
     settings = {
         ["rust-analyzer"] = {
@@ -64,37 +62,51 @@ nvim_lsp.rust_analyzer.setup({
             },
         }
     }
-})
+}
 
-require('lspconfig').sumneko_lua.setup {
-    on_attach = on_attach,
+-- nvim_lsp.sumneko_lua.setup {
+--     on_attach = on_attach,
+--     capabilities = capabilities,
+--     settings = {
+--       Lua = {
+--         runtime = {
+--           version = 'Lua 5.3',
+--           path = {
+--             '?.lua',
+--             '?/init.lua',
+--             vim.fn.expand'~/.luarocks/share/lua/5.3/?.lua',
+--             vim.fn.expand'~/.luarocks/share/lua/5.3/?/init.lua',
+--             '/usr/share/5.3/?.lua',
+--             '/usr/share/lua/5.3/?/init.lua'
+--           }
+--         },
+--         workspace = {
+--           library = {
+--             vim.fn.expand'~/.luarocks/share/lua/5.3',
+--             '/usr/share/lua/5.3'
+--           }
+--         },
+--         telemetry = {
+--             enable = false,
+--         },
+--         diagnostics = {
+--             globals = { 'vim', "envoy_on_response", "envoy_on_request", "ngx" }
+--         },
+--       }
+--     }
+-- }
+
+nvim_lsp.lua_ls.setup {}
+
+nvim_lsp.yamlls.setup {
+    on_attach=on_attach,
     capabilities = capabilities,
     settings = {
-      Lua = {
-        runtime = {
-          version = 'Lua 5.3',
-          path = {
-            '?.lua',
-            '?/init.lua',
-            vim.fn.expand'~/.luarocks/share/lua/5.3/?.lua',
-            vim.fn.expand'~/.luarocks/share/lua/5.3/?/init.lua',
-            '/usr/share/5.3/?.lua',
-            '/usr/share/lua/5.3/?/init.lua'
-          }
-        },
-        workspace = {
-          library = {
-            vim.fn.expand'~/.luarocks/share/lua/5.3',
-            '/usr/share/lua/5.3'
-          }
-        },
-        telemetry = {
-            enable = false,
-        },
-        diagnostics = {
-            globals = { 'vim', "envoy_on_response", "envoy_on_request", "ngx" }
-        },
-      }
+        yaml = {
+            schemas = {
+                ["https://statlas.prod.atl-paas.net/dev/platform/json-schemas/micros-sd.schema.json"]= "*.sd.yml",
+            }
+        }
     }
 }
 

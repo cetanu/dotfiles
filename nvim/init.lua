@@ -1,10 +1,5 @@
 pcall(require, "impatient")
 
-if require "vsy.first_load"() then
-  return
-end
-
-
 -- Global Helpers
 local k_opts = { noremap = true, silent = true }
 
@@ -26,9 +21,11 @@ require 'vsy.keymaps'
 require 'vsy.treesitter'
 require 'vsy.lsp'
 require 'vsy.telescope'
-require 'vsy.snippets'
+-- require 'vsy.snippets'
 require 'vsy.completion'
 require 'vsy.statusline'
 
 
-vim.cmd("colorscheme kanagawa")
+-- vim.cmd("colorscheme kanagawa")
+require('zephyr')
+

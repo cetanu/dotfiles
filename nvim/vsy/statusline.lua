@@ -61,7 +61,7 @@ local generator = function()
         subscribe.buf_autocmd("el_buf_lsp_name", "BufEnter", function(_, _)
             local server = lsp_srvname()
             if server then
-                return '%#Normal#[' .. server
+                return '%#Normal#' .. server
             else
                 return ''
             end
@@ -95,7 +95,7 @@ local generator = function()
             end
             if #display > 0 then
                 table.insert(display, 1, '')
-                table.insert(display, '%#Normal#]')
+                table.insert(display, '%#Normal#')
                 return table.concat(display, ' ')
             else
                 return ''
