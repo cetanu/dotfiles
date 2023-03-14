@@ -19,10 +19,15 @@ alias drm="docker ps -qa | xargs docker rm"
 alias drmi="docker images -qa | xargs docker rmi -f"
 alias dkara="dkill; drm; drmi"
 
-# Zellij
-set ZELLIJ_CONFIG "$HOME/Documents/dotfiles/zellij.yaml"
-alias zn="zellij --config $ZELLIJ_CONFIG"
+# Wireshark
+alias wireshark="/Applications/Wireshark.app/Contents/MacOS/Wireshark"
 
+# Zellij
+set ZELLIJ_CONFIG "$HOME/Documents/dotfiles/zellij/config.kdl"
+alias zn="zellij --config $ZELLIJ_CONFIG"
+alias zrf="zellif run floating"
+
+set EDITOR "/opt/homebrew/bin/nvim"
 set PATH "$HOME/.cargo/bin:$PATH"
 set PATH "$HOME/.local/bin:$PATH"
 set PATH "$HOME/.poetry/bin:$PATH"
