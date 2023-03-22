@@ -1,17 +1,16 @@
 -- Install package manager
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system {
-    'git',
-    'clone',
-    '--filter=blob:none',
-    'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable', -- latest stable release
-    lazypath,
-  }
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
 vim.opt.rtp:prepend(lazypath)
-
 
 require("lazy").setup({
 	{
@@ -39,12 +38,12 @@ require("lazy").setup({
 	},
 
 	-- UI to select things (files, grep results, open buffers...)
-    {
-      'nvim-telescope/telescope.nvim', tag = '0.1.0',
-    -- or                            , branch = '0.1.x',
-      dependencies = { {'nvim-lua/plenary.nvim'} }
-    },
-	"LinArcX/telescope-command-palette.nvim",
+	{
+		"nvim-telescope/telescope.nvim",
+		tag = "0.1.0",
+		-- or                            , branch = '0.1.x',
+		dependencies = { { "nvim-lua/plenary.nvim" } },
+	},
 	{
 		"ahmedkhalf/project.nvim",
 		config = function()
@@ -55,6 +54,10 @@ require("lazy").setup({
 			})
 		end,
 	},
+
+    -- Key mapping helpers
+	"LinArcX/telescope-command-palette.nvim",
+    "linty-org/key-menu.nvim",
 
 	-- Add indentation guides even on blank lines
 	"lukas-reineke/indent-blankline.nvim",
@@ -160,10 +163,10 @@ require("lazy").setup({
 	"folke/tokyonight.nvim",
 	"yashguptaz/calvera-dark.nvim",
 	"kaiuri/nvim-juliana",
-    {
-      'glepnir/zephyr-nvim',
-      dependencies = { 'nvim-treesitter/nvim-treesitter', opt = true },
-    },
+	{
+		"glepnir/zephyr-nvim",
+		dependencies = { "nvim-treesitter/nvim-treesitter", opt = true },
+	},
 
 	-- Status line
 	"tjdevries/express_line.nvim",
@@ -171,11 +174,35 @@ require("lazy").setup({
 	-- Startup speed
 	"lewis6991/impatient.nvim",
 
-    --- Edit file tree as a text file
+	--- Edit file tree as a text file
+	{
+		"stevearc/oil.nvim",
+		config = function()
+			require("oil").setup()
+		end,
+	},
+
+    -- Produce image of highlighted code
     {
-      'stevearc/oil.nvim',
-      config = function() require('oil').setup() end
-    }
+        "krivahtoo/silicon.nvim",
+        build = "sh ./install.sh",
+        cmd = "Silicon",
+        config = function()
+            require('silicon').setup({
+                line_number = true,
+                pad_vert = 80,
+                pad_horiz = 50,
+                output = {
+                    path = "~/Desktop/"
+                },
+                watermark = {
+                    text = "helloworld",
+                },
+                -- window_title = function() return vim.fn.fnamemodify(vim.fn.bufname(vim.fn.bufnr()), ':-:.') end
+            })
+        end
+    },
+
 })
 
 local wilder = require("wilder")

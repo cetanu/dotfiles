@@ -24,6 +24,7 @@ require 'vsy.telescope'
 -- require 'vsy.snippets'
 require 'vsy.completion'
 require 'vsy.statusline'
+require 'vsy.bindings'
 
 
 -- vim.cmd("colorscheme kanagawa")

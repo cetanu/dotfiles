@@ -1,13 +1,15 @@
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-local filetype_attach = setmetatable({
-  rust = function()
-    vim.cmd [[
+local rust_format = [[
       augroup lsp_buf_format
         au! BufWritePre <buffer>
         autocmd BufWritePre <buffer> :lua vim.lsp.buf.formatting_sync()
       augroup END
-    ]]
+]]
+
+local filetype_attach = setmetatable({
+  rust = function()
+    vim.cmd(rust_format)
   end,
 }, {
   __index = function()
