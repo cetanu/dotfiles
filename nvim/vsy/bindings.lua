@@ -28,7 +28,7 @@ key_binding("q", "q", "Quit")
 key_binding("g", "Neogit", "Git")
 
 -- LSP bindings
-key_menu.set('n', '<Space>l', {desc='LSP'})
+key_menu.set("n", "<Space>l", { desc = "LSP" })
 key_binding("lr", "vim.lsp.buf.rename()", "Rename", nil, true)
 key_binding("lR", "vim.lsp.buf.references()", "Find References", nil, true)
 key_binding("ld", "vim.lsp.buf.definition()", "Go to Definition", nil, true)
@@ -36,7 +36,7 @@ key_binding("la", "vim.lsp.buf.code_action()", "Code Action", nil, true)
 key_binding("le", "vim.lsp.diagnostic.get_line_diagnostics()", "Diagnostics", nil, true)
 
 -- Telescope
-key_menu.set('n', '<Space>t', {desc='Telescope'})
+key_menu.set("n", "<Space>t", { desc = "Telescope" })
 key_binding("tf", "Telescope find_files", "Find Files")
 key_binding("tg", "Telescope live_grep", "Grep")
 key_binding("tp", "Telescope projects", "Switch project")

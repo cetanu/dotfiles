@@ -16,6 +16,10 @@ end
 
 
 require 'vsy.plugins'
+
+-- vim.cmd("colorscheme kanagawa")
+require('zephyr')
+
 require 'vsy.options'
 require 'vsy.keymaps'
 require 'vsy.treesitter'
@@ -24,9 +28,3 @@ require 'vsy.telescope'
 -- require 'vsy.snippets'
 require 'vsy.completion'
 require 'vsy.statusline'
-require 'vsy.bindings'
-
-
--- vim.cmd("colorscheme kanagawa")
-require('zephyr')
-

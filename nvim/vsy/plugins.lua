@@ -55,9 +55,9 @@ require("lazy").setup({
 		end,
 	},
 
-    -- Key mapping helpers
+	-- Key mapping helpers
 	"LinArcX/telescope-command-palette.nvim",
-    "linty-org/key-menu.nvim",
+	"linty-org/key-menu.nvim",
 
 	-- Add indentation guides even on blank lines
 	"lukas-reineke/indent-blankline.nvim",
@@ -182,27 +182,26 @@ require("lazy").setup({
 		end,
 	},
 
-    -- Produce image of highlighted code
-    {
-        "krivahtoo/silicon.nvim",
-        build = "sh ./install.sh",
-        cmd = "Silicon",
-        config = function()
-            require('silicon').setup({
-                line_number = true,
-                pad_vert = 80,
-                pad_horiz = 50,
-                output = {
-                    path = "~/Desktop/"
-                },
-                watermark = {
-                    text = "helloworld",
-                },
-                -- window_title = function() return vim.fn.fnamemodify(vim.fn.bufname(vim.fn.bufnr()), ':-:.') end
-            })
-        end
-    },
-
+	-- Produce image of highlighted code
+	{
+		"krivahtoo/silicon.nvim",
+		build = "sh ./install.sh",
+		cmd = "Silicon",
+		config = function()
+			require("silicon").setup({
+				line_number = true,
+				pad_vert = 80,
+				pad_horiz = 50,
+				output = {
+					path = "~/Desktop/",
+				},
+				watermark = {
+					text = "helloworld",
+				},
+				-- window_title = function() return vim.fn.fnamemodify(vim.fn.bufname(vim.fn.bufnr()), ':-:.') end
+			})
+		end,
+	},
 })
 
 local wilder = require("wilder")

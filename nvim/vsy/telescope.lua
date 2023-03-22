@@ -1,61 +1,62 @@
-local telescope = require('telescope')
-telescope.setup {
-  defaults = {
-    mappings = {
-      i = {
-        ['<C-u>'] = false,
-        ['<C-d>'] = false,
-      },
-    },
-  },
-  extensions = {
-    command_palette = {
-        {"Telescope",
-            { "Current Buffers", ":Telescope buffers" },
-            { "Recent", ":Telescope oldfiles" },
-            { "Diagnostics", ":Telescope diagnostics" },
-            { "Dotfiles", ":lua require('telescope.builtin').find_files({cwd = '~/Documents/dotfiles'})" },
-            { "Projects", ":Telescope projects" },
-            { "Project-wide Search", ":lua require('telescope.builtin').live_grep({cwd = '~/Documents'})" },
-            { "Grep", ":Telescope live_grep" },
-            { "Files", ":Telescope find_files" },
-        },
-        {"Git",
-            { "Commits", ":Telescope git_commits" },
-            { "Stashes", ":Telescope git_stashes" },
-            { "Branches", ":Telescope git_branches" },
-            { "Neogit", ":Neogit" },
-        },
-        {"LSP",
-            { "Aerial", ":AerialOpen" },
-            { "DocsView", ":DocsViewToggle" },
-            { "Code Action", ":lua vim.lsp.buf.code_action()"},
-            { "Line Diagnostics", ":lua vim.lsp.buf.get_line_diagnostics()"},
-            { "Find References", ":lua vim.lsp.buf.references()"},
-            { "Go to Definition", ":lua vim.lsp.buf.definition()"},
-            { "Rename", ":lua vim.lsp.buf.rename()"},
-            { "Hover", ":lua vim.lsp.buf.hover()"},
-            { "Trouble", ":Trouble" },
-        },
-        {"File",
-            { "Quit", ":qa" },
-            { "Force Quit", ":qa!" },
-            { "Save", ":w" },
-            { "Save All Open", ":wa" },
-        },
-    }
-  }
-}
-telescope.load_extension('projects')
-telescope.load_extension('command_palette')
---
--- LUA_KEYMAP('n', '<leader><space>', "require('telescope.builtin').buffers")
--- LUA_KEYMAP('n', '<leader>sf',      "require('telescope.builtin').find_files", "{previewer = false}")
--- LUA_KEYMAP('n', '<leader>vrc',     "require('telescope.builtin').find_files", "{cwd = '~/Documents/dotfiles'}")
--- LUA_KEYMAP('n', '<leader>sb',      "require('telescope.builtin').current_buffer_fuzzy_find")
--- LUA_KEYMAP('n', '<leader>sh',      "require('telescope.builtin').help_tags")
--- LUA_KEYMAP('n', '<leader>st',      "require('telescope.builtin').tags")
--- LUA_KEYMAP('n', '<leader>sd',      "require('telescope.builtin').live_grep")
--- LUA_KEYMAP('n', '<leader>so',      "require('telescope.builtin').tags", "{only_current_buffer = true}")
--- LUA_KEYMAP('n', '<leader>?',       "require('telescope.builtin').oldfiles")
-CMD_KEYMAP('n', '<leader>t', "Telescope command_palette")
+local telescope = require("telescope")
+telescope.setup({
+	defaults = {
+		mappings = {
+			i = {
+				["<C-u>"] = false,
+				["<C-d>"] = false,
+			},
+		},
+	},
+})
+telescope.load_extension("projects")
+
+local function cmd(text, lua)
+	if lua then
+		return ":lua " .. text .. "<CR>"
+	else
+		return "<Cmd>" .. text .. "<CR>"
+	end
+end
+
+local function key_binding(key, command, description, mode, lua)
+	if mode == nil then
+		mode = "n"
+	end
+	vim.keymap.set(mode, "<leader>" .. key, cmd(command, lua), { desc = description })
+end
+
+vim.o.timeoutlen = 300
+
+local key_menu = require("key-menu")
+key_menu.set("n", "<Space>")
+
+-- Fundamentals
+key_binding("w", "w", "Save")
+key_binding("X", "xa", "Save and Close All")
+key_binding("n", "noh", "Clear highlights")
+key_binding("q", "q", "Quit")
+
+-- Neogit
+key_binding("g", "Neogit", "Git")
+
+-- LSP bindings
+key_menu.set("n", "<Space>l", { desc = "LSP" })
+key_binding("lr", "vim.lsp.buf.rename()", "Rename", nil, true)
+key_binding("lR", "vim.lsp.buf.references()", "Find References", nil, true)
+key_binding("ld", "vim.lsp.buf.definition()", "Go to Definition", nil, true)
+key_binding("la", "vim.lsp.buf.code_action()", "Code Action", nil, true)
+-- key_binding("le", "vim.lsp.diagnostic.get_line_diagnostics()", "Diagnostics", nil, true)
+
+-- Telescope
+key_menu.set("n", "<Space>t", { desc = "Telescope" })
+key_binding("tf", "Telescope find_files", "Find Files")
+key_binding("tg", "Telescope live_grep", "Grep")
+key_binding("tp", "Telescope projects", "Switch project")
+key_binding("tS", "require('telescope.builtin').live_grep({cwd = '~/Documents'})", "Search all projects", nil, true)
+key_binding("td", "Telescope diagnostics", "Diagnostics")
+key_binding("tr", "Telescope oldfiles", "Recent files")
+key_binding("tb", "Telescope buffers", "Open buffers")
+
+-- Trouble
+key_binding("T", "Trouble", "Diagnostics")

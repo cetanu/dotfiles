@@ -22,29 +22,29 @@ vim.opt.backspace = { "indent", "eol", "start" }
 vim.opt.encoding = "UTF-8"
 vim.opt.cursorline = true
 --Remap space as leader key
-vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.api.nvim_set_keymap("", "<Space>", "<Nop>", { noremap = true, silent = true })
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 vim.opt.listchars = {
 	space = ".",
-	tab = ">~"
+	tab = ">~",
 }
 
 -- Highlight on yank
 vim.api.nvim_exec(
-  [[
+	[[
   augroup YankHighlight
     autocmd!
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
   augroup end
 ]],
-  false
+	false
 )
 
 --Map blankline
-vim.g.indent_blankline_char = '┊'
-vim.g.indent_blankline_filetype_exclude = { 'help', 'packer' }
-vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
-vim.g.indent_blankline_char_highlight = 'LineNr'
+vim.g.indent_blankline_char = "┊"
+vim.g.indent_blankline_filetype_exclude = { "help", "packer" }
+vim.g.indent_blankline_buftype_exclude = { "terminal", "nofile" }
+vim.g.indent_blankline_char_highlight = "LineNr"
 vim.g.indent_blankline_show_trailing_blankline_indent = false
