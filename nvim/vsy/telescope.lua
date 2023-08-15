@@ -9,7 +9,6 @@ telescope.setup({
 		},
 	},
 })
-telescope.load_extension("projects")
 
 local function cmd(text, lua)
 	if lua then
@@ -32,13 +31,14 @@ local key_menu = require("key-menu")
 key_menu.set("n", "<Space>")
 
 -- Fundamentals
-key_binding("w", "w", "Save")
+key_binding("w", "wa", "Save")
 key_binding("X", "xa", "Save and Close All")
 key_binding("n", "noh", "Clear highlights")
 key_binding("q", "q", "Quit")
 
 -- Neogit
-key_binding("g", "Neogit", "Git")
+key_binding("gi", "Neogit", "Neogit")
+key_binding("gd", "View Diff", "DiffviewOpen")
 
 -- LSP bindings
 key_menu.set("n", "<Space>l", { desc = "LSP" })
@@ -46,6 +46,7 @@ key_binding("lr", "vim.lsp.buf.rename()", "Rename", nil, true)
 key_binding("lR", "vim.lsp.buf.references()", "Find References", nil, true)
 key_binding("ld", "vim.lsp.buf.definition()", "Go to Definition", nil, true)
 key_binding("la", "vim.lsp.buf.code_action()", "Code Action", nil, true)
+key_binding("ldv", "DocsViewToggle", "Toggle DocView", nil, true)
 -- key_binding("le", "vim.lsp.diagnostic.get_line_diagnostics()", "Diagnostics", nil, true)
 
 -- Telescope
