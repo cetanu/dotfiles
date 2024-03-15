@@ -44,9 +44,19 @@ require("lazy").setup({
 		-- or                            , branch = '0.1.x',
 		dependencies = { { "nvim-lua/plenary.nvim" } },
 	},
+	{
+		"ahmedkhalf/project.nvim",
+		config = function()
+			require("project_nvim").setup({
+				-- your configuration comes here
+				-- or leave it empty to use the default settings
+				-- refer to the configuration section below
+			})
+		end,
+	},
 
 	-- Key mapping helpers
-	"linty-org/key-menu.nvim",
+	"cetanu/key-menu.nvim",
 
 	-- Add indentation guides even on blank lines
 	"lukas-reineke/indent-blankline.nvim",
@@ -90,7 +100,10 @@ require("lazy").setup({
 	-- LSP / Language support
 	"neovim/nvim-lspconfig",
 	{ "cespare/vim-toml", branch = "main" },
-	"j-hui/fidget.nvim", -- fancy LSP UI elements
+	{ -- fancy LSP UI elements
+		"j-hui/fidget.nvim",
+		branch = "legacy",
+	},
 	"lepture/vim-jinja",
 	"onsails/lspkind-nvim",
 	{
@@ -171,23 +184,30 @@ require("lazy").setup({
 		end,
 	},
 
-	-- Produce image of highlighted code
+	-- UI enhancement
 	{
-		"krivahtoo/silicon.nvim",
-		build = "sh ./install.sh",
-		cmd = "Silicon",
+		"stevearc/dressing.nvim",
 		config = function()
-			require("silicon").setup({
-				line_number = true,
-				pad_vert = 80,
-				pad_horiz = 50,
-				output = {
-					path = "~/Desktop/",
+			require("dressing").setup()
+		end,
+	},
+
+	{
+		"stevearc/conform.nvim",
+		config = function()
+			require("conform").setup({
+				formatters_by_ft = {
+					lua = { "stylua" },
+					-- Conform will run multiple formatters sequentially
+					python = { "black" },
+					-- Use a sub-list to run only the first available formatter
+					-- javascript = { { "prettierd", "prettier" } },
 				},
-				watermark = {
-					text = "helloworld",
+				format_on_save = {
+					-- These options will be passed to conform.format()
+					timeout_ms = 500,
+					lsp_fallback = true,
 				},
-				-- window_title = function() return vim.fn.fnamemodify(vim.fn.bufname(vim.fn.bufnr()), ':-:.') end
 			})
 		end,
 	},
