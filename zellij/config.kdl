@@ -177,7 +177,7 @@ keybinds clear-defaults=true {
 }
 
 pane_frames false
-default_layout "compact"
+// default_layout "compact"
 copy_command "pbcopy"
 auto_layout true
 layout_dir "$HOME/Documents/dotfiles/zellij/layouts"
