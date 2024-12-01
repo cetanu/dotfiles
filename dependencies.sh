@@ -21,7 +21,6 @@ RUST_PKGS=(
     bat
     ripgrep
     git-delta
-    alacritty
     dua-cli
     fd-find
     hyperfine
