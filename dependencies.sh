@@ -27,7 +27,6 @@ RUST_PKGS=(
     sd
     zargs
     starship
-    zellij
     git-interactive-rebase-tool
 )
 for pkg in ${RUST_PKGS[@]}; do

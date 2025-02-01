@@ -22,11 +22,6 @@ alias dkara="dkill; drm; drmi"
 # Wireshark
 alias wireshark="/Applications/Wireshark.app/Contents/MacOS/Wireshark"
 
-# Zellij
-set ZELLIJ_CONFIG "$HOME/Documents/dotfiles/zellij/config.kdl"
-alias zn="zellij --config $ZELLIJ_CONFIG"
-alias zrf="zellif run floating"
-
 set EDITOR "/opt/homebrew/bin/nvim"
 set PATH "$HOME/.cargo/bin:$PATH"
 set PATH "$HOME/.local/bin:$PATH"
@@ -43,3 +38,12 @@ end
 
 set -x STARSHIP_CONFIG ~/.config/starship/starship.toml
 starship init fish | source
+
+
+# BEGIN opam configuration
+# This is useful if you're using opam as it adds:
+#   - the correct directories to the PATH
+#   - auto-completion for the opam binary
+# This section can be safely removed at any time if needed.
+test -r '/Users/vsyrakis/.opam/opam-init/init.fish' && source '/Users/vsyrakis/.opam/opam-init/init.fish' > /dev/null 2> /dev/null; or true
+# END opam configuration
