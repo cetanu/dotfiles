@@ -17,7 +17,6 @@ end
 require("vsy.plugins")
 
 vim.cmd("colorscheme kanagawa")
--- require('zephyr')
 
 require("vsy.options")
 require("vsy.keymaps")
