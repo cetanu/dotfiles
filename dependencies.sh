@@ -1,16 +1,20 @@
-#!/bin/bash
+#!/bin/bash -eu
 
 # Homebrew
 if [[ ! -f $(which brew) ]]; then
-    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
+    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | sudo bash
     echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
     eval "$(/opt/homebrew/bin/brew shellenv)"
     brew update
 fi
 echo "Homebrew installed"
+# yazi
+brew install yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide resvg imagemagick font-symbols-only-nerd-font
+# orbstack
+brew install docker docker-compose orbstack
 
 # Rust toolchain
-if [[ -f $(which rustup) ]]; then
+if [[ ! -f $(which rustup) ]]; then
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     rustup toolchain install stable
 fi
@@ -19,15 +23,16 @@ echo "Rustup installed"
 # Rust utils
 RUST_PKGS=(
     bat
+    lsd
     ripgrep
     git-delta
     dua-cli
     fd-find
     hyperfine
-    sd
-    zargs
+    oha
     starship
     git-interactive-rebase-tool
+    wezterm
 )
 for pkg in ${RUST_PKGS[@]}; do
     INSTALLED=$(cargo install --list | grep ${pkg})
@@ -38,7 +43,20 @@ done
 echo "Rust utils installed"
 
 # Neovim
-[[ -f $(which nvim) ]] || brew install neovim
+if [[ ! -f $(which nvim) ]]; then
+	git clone https://github.com/neovim/neovim --depth 1
+	xcode-select --install
+	brew install ninja cmake gettext curl lua luv lpeg
+	pushd neovim
+		git checkout stable
+		make CMAKE_BUILD_TYPE=RelWithDebInfo
+		sudo make install
+		cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$HOME/.local -G Ninja
+		cmake --build build
+		cmake --install build
+	popd
+	rm -rf neovim
+fi
 echo "Neovim installed"
 
 # Fish shell
@@ -50,9 +68,8 @@ echo "Fish installed"
 [[ -f $(which pyenv) ]] || brew install pyenv
 echo "Pyenv installed"
 PY_VERSIONS=(
-    3.9.0
-    3.10.0
     3.11.0
+    3.12.0
 )
 for ver in ${PY_VERSIONS[@]}; do
     INSTALLED=$(pyenv versions | grep ${ver})
@@ -60,6 +77,10 @@ for ver in ${PY_VERSIONS[@]}; do
         echo "Installing Python ${ver}"
         pyenv install ${ver}
     else
+        pyenv global 3.12.0
+        pyenv init - | source
+        python -m pip install --upgrade pip pipx poetry uv
+        uv tool install ruff@latest
         echo "Python ${ver} installed"
     fi
 done
@@ -88,3 +109,6 @@ done
 [[ -f $(which rust-analyzer) ]] || brew install rust-analyzer
 echo "rust-analyzer installed"
 
+# wezterm
+[[ -f $(which wezterm) ]] || brew install --cask wezterm
+echo "wezterm installed"
