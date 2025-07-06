@@ -1,6 +1,6 @@
 # Rust CLI replacements
-alias ls="exa"
-alias ll="exa -l"
+alias ls="lsd --long --human-readable --group-dirs first --gitsort --git --blocks permission,size,date,git,name --date relative --size short --permission octal"
+alias lst="lsd --long --human-readable --group-dirs first --gitsort --git --blocks permission,size,date,git,name --date relative --size short --permission octal --tree --depth 2"
 alias cat="bat"
 alias grep="rg"
 alias dig="dog"
@@ -47,3 +47,11 @@ starship init fish | source
 # This section can be safely removed at any time if needed.
 test -r '/Users/vsyrakis/.opam/opam-init/init.fish' && source '/Users/vsyrakis/.opam/opam-init/init.fish' > /dev/null 2> /dev/null; or true
 # END opam configuration
+function y
+	set tmp (mktemp -t "yazi-cwd.XXXXXX")
+	yazi $argv --cwd-file="$tmp"
+	if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+		builtin cd -- "$cwd"
+	end
+	rm -f -- "$tmp"
+end
