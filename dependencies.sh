@@ -1,4 +1,4 @@
-#!/bin/bash -eu
+#!/bin/bash
 
 # Homebrew
 if [[ ! -f $(which brew) ]]; then
@@ -8,10 +8,16 @@ if [[ ! -f $(which brew) ]]; then
     brew update
 fi
 echo "Homebrew installed"
+
 # yazi
 brew install yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide resvg imagemagick font-symbols-only-nerd-font
+
 # orbstack
 brew install docker docker-compose orbstack
+
+# Fish shell
+[[ -f $(which fish) ]] || brew install fish
+echo "Fish installed"
 
 # Rust toolchain
 if [[ ! -f $(which rustup) ]]; then
@@ -59,9 +65,6 @@ if [[ ! -f $(which nvim) ]]; then
 fi
 echo "Neovim installed"
 
-# Fish shell
-[[ -f $(which fish) ]] || brew install fish
-echo "Fish installed"
 
 
 # pyenv

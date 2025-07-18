@@ -80,14 +80,14 @@ local key_menu = require("key-menu")
 key_menu.set("n", "<Space>")
 
 -- Fundamentals
-key_binding("w", "wa", "Save")
-key_binding("X", "xa", "Save and Close All")
+key_binding("s", "w", "Save")
 key_binding("n", "noh", "Clear highlights")
-key_binding("q", "q", "Quit")
-key_binding("Q", "qa!", "Force Quit")
+key_binding("q", "wqa", "Quit")
+key_binding("Q", "qa!", "Quit without saving")
 
 -- Neogit
-key_binding("g", "Neogit", "Neogit")
+key_binding("g", "Neogit", "Git")
+key_binding("Gc", "NeogitCommit", "Commit")
 
 -- LSP bindings
 key_menu.set("n", "<Space>l", { desc = "LSP" })
@@ -95,6 +95,7 @@ key_binding("lr", "vim.lsp.buf.rename()", "Rename", nil, true)
 key_binding("lR", "vim.lsp.buf.references()", "Find References", nil, true)
 key_binding("ld", "vim.lsp.buf.definition()", "Go to Definition", nil, true)
 key_binding("la", "vim.lsp.buf.code_action()", "Code Action", nil, true)
+key_binding("le", "vim.lsp.diagnostic.get_line_diagnostics()", "Diagnostics", nil, true)
 
 -- Telescope
 key_menu.set("n", "<Space>t", { desc = "Telescope" })
@@ -109,3 +110,9 @@ key_binding("tc", "Telescope command_history", "Command History")
 
 -- Trouble
 key_binding("T", "Trouble", "Diagnostics")
+
+-- Aerial
+key_binding("a", "AerialOpen", "Aerial menu")
+
+-- Oil
+key_binding("o", "Oil", "Edit files (oil)")
