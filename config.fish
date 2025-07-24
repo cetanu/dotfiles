@@ -22,12 +22,13 @@ alias dkara="dkill; drm; drmi"
 # Wireshark
 alias wireshark="/Applications/Wireshark.app/Contents/MacOS/Wireshark"
 
-set EDITOR "/opt/homebrew/bin/nvim"
 set PATH "$HOME/.cargo/bin:$PATH"
 set PATH "$HOME/.local/bin:$PATH"
 set PATH "$HOME/.poetry/bin:$PATH"
 set PATH "$HOME/go/bin:$PATH"
 set PATH "/opt/homebrew/bin:$PATH"
+
+set -Ux EDITOR "$HOME/.local/bin/nvim"
 
 status is-login; and pyenv init --path | source
 pyenv init - | source 1>/dev/null

@@ -108,6 +108,10 @@ for lsp in ${NODE_LSPS[@]}; do
         echo "LSP ${lsp} installed"
     fi
 done
+
+# lua ls
+[[ -f $(which lua-language-server) ]] || brew install lua-language-server
+
 # rust-analyzer
 [[ -f $(which rust-analyzer) ]] || brew install rust-analyzer
 echo "rust-analyzer installed"
