@@ -70,7 +70,7 @@ require("lazy").setup({
 
 	-- Treesitter
 	"nvim-treesitter/nvim-treesitter",
-	"nvim-treesitter/nvim-treesitter-context",
+	-- "nvim-treesitter/nvim-treesitter-context",
 	"nvim-treesitter/nvim-treesitter-textobjects",
 
 	-- Completion
@@ -172,9 +172,9 @@ require("lazy").setup({
 	},
 
 	-- Copilot kekw
-	{
-		"github/copilot.vim",
-	},
+	-- {
+	-- 	"github/copilot.vim",
+	-- },
 
 	{
 		"cetanu/taskrunner.nvim",
