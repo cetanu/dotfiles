@@ -176,9 +176,8 @@ require("lazy").setup({
 	-- 	"github/copilot.vim",
 	-- },
 
-	{
-		"cetanu/taskrunner.nvim",
-	},
+	{ "cetanu/taskrunner.nvim" },
+	{ "cetanu/python-env.nvim" },
 
 	{
 		"folke/noice.nvim",

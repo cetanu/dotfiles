@@ -95,7 +95,7 @@ echo "Node.js and NPM installed"
 
 # Language servers
 NODE_LSPS=(
-    pyright
+    basedpyright
     bash-language-server
     yaml-language-server
 )

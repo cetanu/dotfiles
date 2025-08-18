@@ -35,7 +35,7 @@ end
 local servers = {
 	"clangd",
 	"rust_analyzer",
-	"pyright",
+	"basedpyright",
 	"ts_ls",
 	"yamlls",
 	"jsonls",
@@ -53,6 +53,21 @@ for _, lsp in ipairs(servers) do
 		capabilities = capabilities,
 	})
 end
+
+require("lspconfig").basedpyright.setup({
+	settings = {
+		basedpyright = {
+			analysis = {
+				diagnosticMode = "openFilesOnly",
+				inlayHints = {
+					variableTypes = true,
+					callArgumentNames = true,
+					callArgumentNamesMatching = false,
+				},
+			},
+		},
+	},
+})
 
 nvim_lsp.rust_analyzer.setup({
 	on_attach = on_attach,
