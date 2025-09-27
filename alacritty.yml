@@ -1,0 +1,33 @@
+window:
+  dimensions:
+    columns: 120  # or 100 for 720p
+    lines: 34     # adjust to fit layout nicely
+  padding:
+    x: 12
+    y: 12
+  opacity: 1
+  title: terminal
+  dynamic_title: false
+
+font:
+  size: 14
+
+cursor:
+  style:
+    shape: Beam
+  unfocused_hollow: true
+
+
+scrolling:
+  history: 20000
+
+draw_bold_text_with_bright_colors: true
+
+selection:
+  save_to_clipboard: false
+
+shell:
+  program: /usr/bin/env
+  args:
+    - fish
+    - --login

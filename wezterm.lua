@@ -33,6 +33,6 @@ config.tab_bar_at_bottom = true
 config.freetype_load_target = "HorizontalLcd"
 
 -- Spawn a fish shell in login mode
-config.default_prog = { "/opt/homebrew/bin/fish", "--login" }
+config.default_prog = { "/usr/bin/fish", "--login" }
 
 return config

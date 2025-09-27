@@ -11,7 +11,6 @@ alias gitcf="git commit --amend; git push -f"
 alias gitp="git checkout master; git pull"
 alias gitr="git reset --hard HEAD"
 alias gits="git status"
-alias pr="cat ~/pr.md | pbcopy"
 
 # Docker
 alias dkill="docker ps -qa | xargs docker kill"
@@ -37,22 +36,8 @@ if test -e "$HOME/.config/cloudtoken/bashrc_additions"
     source "$HOME/.config/cloudtoken/bashrc_additions"
 end
 
+set -Ux PYENV_ROOT $HOME/.pyenv
+test -d $PYENV_ROOT/bin; and fish_add_path $PYENV_ROOT/bin
+
 set -x STARSHIP_CONFIG ~/.config/starship/starship.toml
 starship init fish | source
-
-
-# BEGIN opam configuration
-# This is useful if you're using opam as it adds:
-#   - the correct directories to the PATH
-#   - auto-completion for the opam binary
-# This section can be safely removed at any time if needed.
-test -r '/Users/vsyrakis/.opam/opam-init/init.fish' && source '/Users/vsyrakis/.opam/opam-init/init.fish' > /dev/null 2> /dev/null; or true
-# END opam configuration
-function y
-	set tmp (mktemp -t "yazi-cwd.XXXXXX")
-	yazi $argv --cwd-file="$tmp"
-	if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
-		builtin cd -- "$cwd"
-	end
-	rm -f -- "$tmp"
-end
