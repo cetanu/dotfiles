@@ -18,7 +18,6 @@ local filetype_attach = setmetatable({
 	end,
 })
 
-local nvim_lsp = require("lspconfig")
 local on_attach = function(client, bufnr)
 	local filetype = vim.api.nvim_buf_get_option(0, "filetype")
 
@@ -48,13 +47,13 @@ local servers = {
 	"ocamllsp",
 }
 for _, lsp in ipairs(servers) do
-	nvim_lsp[lsp].setup({
+	lspconfig[lsp].setup({
 		on_attach = on_attach,
 		capabilities = capabilities,
 	})
 end
 
-require("lspconfig").basedpyright.setup({
+lspconfig.basedpyright.setup({
 	settings = {
 		basedpyright = {
 			analysis = {
@@ -69,7 +68,7 @@ require("lspconfig").basedpyright.setup({
 	},
 })
 
-nvim_lsp.rust_analyzer.setup({
+lspconfig.rust_analyzer.setup({
 	on_attach = on_attach,
 	settings = {
 		["rust-analyzer"] = {
@@ -87,7 +86,7 @@ nvim_lsp.rust_analyzer.setup({
 	},
 })
 
-nvim_lsp.lua_ls.setup({
+lspconfig.lua_ls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 	settings = {
@@ -120,7 +119,7 @@ nvim_lsp.lua_ls.setup({
 	},
 })
 
-nvim_lsp.yamlls.setup({
+lspconfig.yamlls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 	settings = {
@@ -133,7 +132,7 @@ nvim_lsp.yamlls.setup({
 	},
 })
 
-nvim_lsp.clangd.setup({
+lspconfig.clangd.setup({
 	cmd = { "clangd" },
 	filetypes = { "c", "cpp", "objc", "objcpp" },
 	root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),

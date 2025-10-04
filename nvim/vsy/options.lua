@@ -12,6 +12,7 @@ vim.opt.smartcase = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.undodir = vim.env.HOME .. "/.vim/undodir"
+vim.opt.timeoutlen = 300
 vim.opt.updatetime = 300
 vim.opt.cmdheight = 2
 vim.opt.tabstop = 4

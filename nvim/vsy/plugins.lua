@@ -12,6 +12,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- suppress deprecations
+vim.deprecate = function() end
+
 require("lazy").setup({
 	{
 		"folke/todo-comments.nvim",
@@ -159,9 +162,16 @@ require("lazy").setup({
 			require("conform").setup({
 				formatters_by_ft = {
 					lua = { "stylua" },
-					python = { "ruff format --line-length 120" },
+					python = { "ruff_format" },
 					-- Use a sub-list to run only the first available formatter
 					-- javascript = { { "prettierd", "prettier" } },
+				},
+				formatters = {
+					ruff_format = {
+						command = "ruff",
+						args = { "format", "--stdin-filename", "$FILENAME", "-" },
+						stdin = true,
+					},
 				},
 				format_on_save = {
 					timeout_ms = 500,
@@ -178,6 +188,16 @@ require("lazy").setup({
 
 	{ "cetanu/taskrunner.nvim" },
 	{ "cetanu/python-env.nvim" },
+	{
+		"cetanu/recent-work.nvim",
+		config = function()
+			require("recent-work").setup({
+				project_directory = vim.fn.expand("~/Documents"),
+				days_back = 7,
+				max_depth = 2,
+			})
+		end,
+	},
 
 	{
 		"folke/noice.nvim",
