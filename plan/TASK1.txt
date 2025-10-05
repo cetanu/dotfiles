@@ -1,0 +1,156 @@
+PHASE 1: Basic SaltStack Structure & Package Management
+=======================================================
+
+OVERVIEW
+--------
+Convert the current bash-based package installation system to SaltStack states with 
+cross-platform support. This phase establishes the foundation and handles the most
+complex part of the migration - abstracting different package managers.
+
+GOALS
+-----
+- Create SaltStack directory structure
+- Implement OS detection and package manager abstraction
+- Convert dependencies.sh to Salt states
+- Support both macOS (Homebrew) and Linux (apt/dnf/pacman)
+- Maintain current package list functionality
+
+DIRECTORY STRUCTURE TO CREATE
+-----------------------------
+salt/
+├── top.sls                           # Main state tree
+├── pillar/
+│   ├── top.sls                      # Pillar assignments
+│   ├── common.sls                   # Cross-platform settings
+│   ├── macos.sls                    # macOS-specific packages
+│   ├── ubuntu.sls                   # Ubuntu-specific packages
+│   ├── arch.sls                     # Arch Linux-specific packages
+│   └── fedora.sls                   # Fedora-specific packages
+├── states/
+│   ├── packages/
+│   │   ├── init.sls                 # Main package orchestration
+│   │   ├── system.sls               # System package manager packages
+│   │   ├── homebrew.sls             # macOS Homebrew packages
+│   │   ├── rust.sls                 # Rust toolchain & cargo packages
+│   │   ├── python.sls               # Python packages (pip/pipx)
+│   │   ├── node.sls                 # Node.js & npm packages
+│   │   └── manual.sls               # Manual installs (GitHub releases)
+│   └── bootstrap/
+│       ├── init.sls                 # Bootstrap orchestration
+│       ├── package_managers.sls     # Install package managers
+│       └── prerequisites.sls       # System prerequisites
+
+PACKAGE MAPPING STRATEGY
+------------------------
+Current dependencies.sh installs:
+- System packages: fish, neovim, git-delta, etc.
+- Homebrew packages: Various development tools
+- Rust packages: via cargo install
+- Python packages: via pip/pipx
+- Node.js packages: LSP servers and tools
+
+Salt approach:
+1. Pillar data defines packages per OS
+2. States use pkg.installed with OS-specific package names
+3. Alternative package managers (cargo, pip, npm) handled separately
+4. Manual installs via cmd.run with creates/unless logic
+
+IMPLEMENTATION DETAILS
+----------------------
+
+1. TOP.SLS (State Tree)
+   - Map states to all minions
+   - Include bootstrap, packages, and prerequisites
+
+2. PILLAR STRUCTURE
+   common.sls:
+   - User settings (name, email, etc.)
+   - Cross-platform package lists
+   - Feature flags (install_rust, install_python, etc.)
+   
+   OS-specific pillar files:
+   - Package name mappings (fish vs fish-shell)
+   - OS-specific package lists
+   - Package manager configuration
+
+3. PACKAGE STATES
+   init.sls:
+   - Orchestrate package installation order
+   - Include OS-specific states based on grains
+   
+   system.sls:
+   - Use pkg.installed with pillar data
+   - Handle package name differences across OS
+   
+   rust.sls:
+   - Install rustup if not present
+   - Install cargo packages from pillar list
+   
+   python.sls:
+   - Ensure python3/pip3 installed
+   - Install packages via pip.installed
+   
+   node.sls:
+   - Install Node.js via package manager
+   - Install npm packages globally
+
+4. BOOTSTRAP LOGIC
+   - Detect OS and architecture
+   - Install package managers (Homebrew on macOS)
+   - Install Salt prerequisites
+
+PACKAGE MAPPING EXAMPLES
+------------------------
+From dependencies.sh analysis:
+
+Homebrew packages → Cross-platform mapping:
+- fish → fish (ubuntu), fish-shell (fedora)
+- neovim → neovim (most), nvim (some)
+- git-delta → git-delta (most), delta (arch)
+- fzf → fzf (all)
+- ripgrep → ripgrep (all)
+- fd → fd-find (ubuntu), fd (others)
+
+Cargo packages (same across platforms):
+- stylua, taplo, tree-sitter-cli, etc.
+
+Python packages (same across platforms):
+- ruff, black, pyright, etc.
+
+Node packages (same across platforms):
+- bash-language-server, typescript-language-server, etc.
+
+TESTING STRATEGY
+---------------
+1. Create VM/container for each target OS
+2. Test package installation states
+3. Verify cross-platform package name resolution
+4. Test bootstrap process on fresh systems
+5. Validate dependency ordering
+
+DELIVERABLES
+-----------
+1. Complete Salt directory structure
+2. Working package installation states
+3. Cross-platform pillar data
+4. Bootstrap states for fresh system setup
+5. Documentation for running Salt states
+6. Validation scripts for testing
+
+SUCCESS CRITERIA
+----------------
+- Salt can install all packages from current dependencies.sh
+- Works on macOS with Homebrew
+- Works on Ubuntu with apt
+- Works on at least one other Linux distro
+- Package installation is idempotent
+- Clear separation between OS-specific and common packages
+- Bootstrap process works on fresh systems
+
+NOTES
+-----
+- Keep original dependencies.sh as reference during development
+- Focus on core functionality first, advanced features in later phases
+- Use Salt grains for OS detection
+- Consider using Salt's pkg state with sources for custom repositories
+- Document any packages that can't be automated (require manual intervention)

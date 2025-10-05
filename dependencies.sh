@@ -32,6 +32,7 @@ RUST_PKGS=(
     lsd
     ripgrep
     git-delta
+    git-cliff
     dua-cli
     fd-find
     hyperfine
@@ -39,6 +40,9 @@ RUST_PKGS=(
     starship
     git-interactive-rebase-tool
     wezterm
+    diskonaut
+    bob-nvim
+    envio
 )
 for pkg in ${RUST_PKGS[@]}; do
     INSTALLED=$(cargo install --list | grep ${pkg})
@@ -49,6 +53,7 @@ done
 echo "Rust utils installed"
 
 # Neovim
+# TODO: maybe not necessary with bob-nvim
 if [[ ! -f $(which nvim) ]]; then
 	git clone https://github.com/neovim/neovim --depth 1
 	xcode-select --install
@@ -84,6 +89,7 @@ for ver in ${PY_VERSIONS[@]}; do
         pyenv init - | source
         python -m pip install --upgrade pip pipx poetry uv
         uv tool install ruff@latest
+        uv tool install tiptop
         echo "Python ${ver} installed"
     fi
 done

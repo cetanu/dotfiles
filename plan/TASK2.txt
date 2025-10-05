@@ -1,0 +1,252 @@
+PHASE 2: Configuration Management & Dotfiles
+=============================================
+
+OVERVIEW
+--------
+Convert the current manual symlink-based dotfile management to Salt's file management
+system. This phase focuses on deploying, templating, and managing configuration files
+across different environments while maintaining user customization capabilities.
+
+GOALS
+-----
+- Migrate all dotfiles to Salt file management
+- Implement configuration templating for dynamic settings
+- Create robust symlink management
+- Support user-specific and machine-specific overrides
+- Maintain backward compatibility with existing configs
+
+CONFIGURATION FILES TO MIGRATE
+------------------------------
+From current repository:
+- gitconfig (Git configuration)
+- config.fish (Fish shell configuration)
+- starship.toml (Shell prompt configuration)
+- wezterm.lua (Terminal emulator)
+- alacritty.yml (Alternative terminal)
+- nvim/ (Complete Neovim configuration tree)
+
+TARGET DIRECTORY STRUCTURE
+--------------------------
+salt/
+├── states/
+│   ├── dotfiles/
+│   │   ├── init.sls                 # Dotfiles orchestration
+│   │   ├── git.sls                  # Git configuration
+│   │   ├── shell.sls                # Fish shell setup
+│   │   ├── prompt.sls               # Starship prompt
+│   │   ├── terminals.sls            # Terminal configurations
+│   │   ├── neovim.sls              # Neovim setup
+│   │   └── symlinks.sls            # Symlink management
+│   └── users/
+│       ├── init.sls                # User environment setup
+│       └── directories.sls         # User directory creation
+├── files/
+│   ├── dotfiles/
+│   │   ├── gitconfig.jinja         # Templated git config
+│   │   ├── config.fish.jinja       # Templated fish config
+│   │   ├── starship.toml           # Static starship config
+│   │   ├── wezterm.lua.jinja       # Templated wezterm config
+│   │   ├── alacritty.yml.jinja     # Templated alacritty config
+│   │   └── nvim/                   # Neovim configuration tree
+│   └── scripts/
+│       └── dotfile_backup.sh      # Backup existing configs
+
+TEMPLATING STRATEGY
+------------------
+Convert static configs to Jinja2 templates for dynamic values:
+
+1. GITCONFIG TEMPLATING
+   Template variables:
+   - user.name (from pillar)
+   - user.email (from pillar)
+   - core.editor (neovim path, OS-dependent)
+   - OS-specific settings (credential helpers, etc.)
+
+2. FISH CONFIG TEMPLATING
+   Template variables:
+   - PATH modifications (OS-dependent)
+   - Homebrew path (macOS only)
+   - Cargo path (if Rust installed)
+   - Python path (if Python installed)
+   - Environment variables (OS-dependent)
+
+3. TERMINAL CONFIGS TEMPLATING
+   Template variables:
+   - Font paths (OS-dependent)
+   - Color schemes (user preference)
+   - Key bindings (OS-dependent)
+   - Shell integration paths
+
+4. NEOVIM CONFIG HANDLING
+   - Most Lua configs can remain static
+   - Template init.lua for conditional plugin loading
+   - Handle OS-specific LSP paths
+
+PILLAR DATA STRUCTURE
+--------------------
+Extended pillar for user configuration:
+
+user:
+  name: "Your Name"
+  email: "your.email@example.com"
+  shell: "/usr/bin/fish"
+  editor: "nvim"
+  
+dotfiles:
+  backup_existing: true
+  git:
+    editor: "nvim"
+    default_branch: "main"
+    gpg_signing: false
+  
+  shell:
+    fish:
+      enable_vi_mode: true
+      custom_functions: true
+  
+  terminals:
+    default: "wezterm"  # or "alacritty"
+    font_family: "JetBrains Mono"
+    font_size: 14
+    color_scheme: "tokyonight"
+
+  neovim:
+    enable_copilot: false
+    lsp_servers: ["rust-analyzer", "pyright", "tsserver"]
+
+OS-SPECIFIC CONFIGURATIONS
+--------------------------
+Handle platform differences:
+
+macOS:
+  paths:
+    homebrew: "/opt/homebrew"
+    fish: "/opt/homebrew/bin/fish"
+  
+Ubuntu:
+  paths:
+    fish: "/usr/bin/fish"
+  
+Arch:
+  paths:
+    fish: "/usr/bin/fish"
+
+IMPLEMENTATION DETAILS
+----------------------
+
+1. DOTFILES STATE STRUCTURE
+   init.sls:
+   - Include all dotfile states
+   - Ensure proper ordering (directories before files)
+   - Handle backup of existing configurations
+   
+   git.sls:
+   - Deploy templated gitconfig
+   - Ensure .gitconfig symlink in home directory
+   - Validate Git configuration
+   
+   shell.sls:
+   - Deploy Fish configuration
+   - Set Fish as default shell (if desired)
+   - Install Fish plugins/functions
+   
+   neovim.sls:
+   - Deploy entire nvim configuration tree
+   - Maintain directory structure
+   - Handle OS-specific LSP configurations
+
+2. FILE MANAGEMENT APPROACH
+   Use Salt's file.managed for templates:
+   - Source: salt://files/dotfiles/template.jinja
+   - Target: /home/user/.config/file
+   - Template: jinja
+   - Context: pillar data
+   - User/group: correct ownership
+   - Mode: appropriate permissions
+
+3. SYMLINK MANAGEMENT
+   Replace manual symlinking with Salt file.symlink:
+   - Create symlinks from deployed configs to expected locations
+   - Handle XDG Base Directory specification
+   - Support legacy dotfile locations for compatibility
+
+4. BACKUP STRATEGY
+   Before deploying new configs:
+   - Check if existing configs exist
+   - Create backup with timestamp
+   - Store backups in ~/.config/dotfiles_backup/
+   - Provide restoration mechanism
+
+DIRECTORY STRUCTURE HANDLING
+----------------------------
+Ensure proper directories exist:
+- ~/.config/ (XDG config directory)
+- ~/.local/share/ (XDG data directory)
+- ~/.cache/ (XDG cache directory)
+- OS-specific application directories
+
+ADVANCED FEATURES
+-----------------
+1. CONDITIONAL CONFIG SECTIONS
+   Use Jinja2 conditionals for:
+   - Feature flags (enable/disable sections)
+   - OS-specific configurations
+   - Machine-specific settings
+
+2. CONFIG VALIDATION
+   - Validate syntax of generated configs
+   - Test configurations before deployment
+   - Rollback mechanism for failed deployments
+
+3. USER OVERRIDES
+   Support user-specific customizations:
+   - Local pillar overrides
+   - Include local config files
+   - Merge user-specific settings
+
+TESTING STRATEGY
+---------------
+1. Template rendering validation
+2. File deployment testing
+3. Symlink creation verification
+4. Backup and restore testing
+5. Cross-platform configuration testing
+6. User override functionality testing
+
+DELIVERABLES
+-----------
+1. Complete dotfiles states
+2. Templated configuration files
+3. Symlink management system
+4. Backup and restore functionality
+5. User customization documentation
+6. Migration guide from current setup
+
+SUCCESS CRITERIA
+----------------
+- All current dotfiles managed by Salt
+- Templates generate correct configs for different environments
+- Symlinks created properly on all platforms
+- Existing configurations backed up safely
+- User can customize settings via pillar data
+- Neovim configuration works across platforms
+- Terminal configurations applied correctly
+- Git configuration uses user-specific data
+
+MIGRATION PATH
+-------------
+1. Test Salt states alongside current setup
+2. Backup existing configurations
+3. Deploy Salt-managed configs to test locations
+4. Validate functionality
+5. Switch symlinks to Salt-managed configs
+6. Remove old manual symlinks
+7. Update documentation
+
+NOTES
+-----
+- Preserve all current functionality
+- Support incremental migration (can run alongside current setup)
+- Document pillar customization options
+- Consider creating user-friendly configuration interface
+- Plan for future addition of new dotfiles
