@@ -9,24 +9,25 @@ end
 
 -- Set background to same color as neovim
 config.color_scheme = "Modus-Vivendi-Tritanopia"
+config.color_scheme = "Atelier Plateau (base16)"
 
 config.font = wezterm.font_with_fallback({
 	-- "OpenDyslexic",
 	-- "Space Mono",
 	"JetBrains Mono",
 })
-config.font_size = 18
+config.font_size = 16
 
 -- default is true, has more "native" look
-config.use_fancy_tab_bar = false
+config.use_fancy_tab_bar = true
 
 -- I don't like putting anything at the ege if I can help it.
 config.enable_scroll_bar = false
 config.window_padding = {
-	left = 0,
-	right = 0,
-	top = 0,
-	bottom = 0,
+	left = 5,
+	right = 5,
+	top = 5,
+	bottom = 5,
 }
 
 config.tab_bar_at_bottom = true
