@@ -42,7 +42,9 @@ require("lazy").setup({
 	{
 		"ahmedkhalf/project.nvim",
 		config = function()
-			require("project_nvim").setup({})
+			require("project_nvim").setup({
+				scope_chdir = "tab",
+			})
 		end,
 	},
 
@@ -208,6 +210,20 @@ require("lazy").setup({
 	},
 
 	{
+		"jinh0/eyeliner.nvim",
+		config = function()
+			require("eyeliner").setup({
+				highlight_on_key = true,
+				dim = true,
+			})
+		end,
+	},
+
+	{
+		"nanozuki/tabby.nvim",
+	},
+
+	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		opts = {
@@ -219,7 +235,7 @@ require("lazy").setup({
 			-- OPTIONAL:
 			--   `nvim-notify` is only needed, if you want to use the notification view.
 			--   If not available, we use `mini` as the fallback
-			"rcarriga/nvim-notify",
+			-- "rcarriga/nvim-notify",
 		},
 		config = function()
 			require("noice").setup({
