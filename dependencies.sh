@@ -43,6 +43,7 @@ RUST_PKGS=(
     diskonaut
     bob-nvim
     envio
+    fnm
 )
 for pkg in ${RUST_PKGS[@]}; do
     INSTALLED=$(cargo install --list | grep ${pkg})
