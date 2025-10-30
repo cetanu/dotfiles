@@ -66,3 +66,7 @@ key_binding("rt", "TaskRunner", "Run task")
 
 -- Recent work
 key_binding("rw", "RecentWorkMyCommits", "Recent work")
+
+-- Tabs
+-- vim.api.nvim_set_keymap("n", "<leader>ta", ":$tabnew<CR>", { noremap = true })
+key_binding("tta", ":$tabnew<CR>", "New Tab")
