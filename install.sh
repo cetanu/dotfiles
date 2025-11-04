@@ -14,3 +14,6 @@ ln -f wezterm.lua ~/.wezterm.lua 2>/dev/null; and echo "wezterm config installed
 
 mkdir -p ~/.config/alacritty
 ln -f alacritty.yml ~/.config/alacritty/alacritty.yml 2>/dev/null; and echo "alacritty config installed"
+
+mkdir -p ~/.config/ghostty
+ln -f ghostty.config ~/.config/ghostty/config 2>/dev/null; and echo "ghostty config installed"
