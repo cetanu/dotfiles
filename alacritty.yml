@@ -27,7 +27,6 @@ selection:
   save_to_clipboard: false
 
 shell:
-  program: /usr/bin/env
+  program: /usr/bin/fish
   args:
-    - fish
     - --login
