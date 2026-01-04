@@ -23,6 +23,6 @@ require("vsy.keymaps")
 require("vsy.treesitter")
 require("vsy.lsp")
 require("vsy.telescope")
--- require 'vsy.snippets'
+require("vsy.snippets")
 require("vsy.completion")
 require("vsy.statusline")

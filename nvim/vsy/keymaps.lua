@@ -23,7 +23,6 @@ local key_menu = require("key-menu")
 key_menu.set("n", "<Space>")
 
 -- Fundamentals
-key_binding("s", "w", "Save")
 key_binding("n", "noh", "Clear highlights")
 key_binding("q", "wqa", "Quit")
 key_binding("Q", "qa!", "Quit without saving")
@@ -70,3 +69,7 @@ key_binding("rw", "RecentWorkMyCommits", "Recent work")
 -- Tabs
 -- vim.api.nvim_set_keymap("n", "<leader>ta", ":$tabnew<CR>", { noremap = true })
 key_binding("tta", ":$tabnew<CR>", "New Tab")
+
+-- LuaSnip
+key_menu.set("n", "<Space>s", { desc = "Snippets" })
+key_binding("sr", "source ~/.config/nvim/after/plugin/luasnip.lua", "Reload")
