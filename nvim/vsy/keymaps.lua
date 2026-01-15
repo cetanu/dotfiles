@@ -52,7 +52,8 @@ key_binding("tb", "Telescope buffers", "Open buffers")
 key_binding("tc", "Telescope command_history", "Command History")
 
 -- Trouble
-key_binding("T", "Trouble diagnostics", "Diagnostics")
+key_binding("Td", "Trouble diagnostics", "Diagnostics")
+key_binding("Tt", "Trouble todo", "TO-DO comments")
 
 -- Aerial
 key_binding("a", "AerialOpen", "Aerial menu")
