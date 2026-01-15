@@ -176,7 +176,11 @@ require("lazy").setup({
 			require("conform").setup({
 				formatters_by_ft = {
 					lua = { "stylua" },
-					python = { "ruff_format" },
+					python = {
+						"ruff_fix",
+						"ruff_format",
+						"ruff_organize_imports",
+					},
 					-- Use a sub-list to run only the first available formatter
 					-- javascript = { { "prettierd", "prettier" } },
 				},

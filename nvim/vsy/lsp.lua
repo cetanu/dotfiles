@@ -34,13 +34,11 @@ end
 local servers = {
 	"clangd",
 	"rust_analyzer",
-	"basedpyright",
 	"ts_ls",
 	"yamlls",
 	"jsonls",
 	"gopls",
 	"salt_ls",
-	"ruff",
 	"dockerls",
 	"bashls",
 	"awk_ls",
@@ -53,20 +51,20 @@ for _, lsp in ipairs(servers) do
 	})
 end
 
-lspconfig.basedpyright.setup({
+-- apparently new way to attach lsp since nvim 0.11
+vim.lsp.config("ty", {
 	settings = {
-		basedpyright = {
-			analysis = {
-				diagnosticMode = "openFilesOnly",
-				inlayHints = {
-					variableTypes = true,
-					callArgumentNames = true,
-					callArgumentNamesMatching = false,
-				},
+		ty = {
+			diagnosticMode = "workspace",
+			experimental = {
+				rename = true,
+				autoImport = true,
 			},
 		},
 	},
 })
+vim.lsp.enable("ty")
+vim.lsp.enable("ruff")
 
 lspconfig.rust_analyzer.setup({
 	on_attach = on_attach,

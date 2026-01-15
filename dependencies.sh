@@ -44,6 +44,12 @@ RUST_PKGS=(
     bob-nvim
     envio
     fnm
+    csvlens
+    gitlogue
+    ducker
+    flamelens
+    jwt-ui
+    jless
 )
 for pkg in ${RUST_PKGS[@]}; do
     INSTALLED=$(cargo install --list | grep ${pkg})
@@ -102,7 +108,6 @@ echo "Node.js and NPM installed"
 
 # Language servers
 NODE_LSPS=(
-    basedpyright
     bash-language-server
     yaml-language-server
 )
