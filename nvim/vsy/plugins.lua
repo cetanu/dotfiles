@@ -322,4 +322,34 @@ require("lazy").setup({
 			vim.keymap.set("n", "];", dropbar_api.select_next_context, { desc = "Select next context" })
 		end,
 	},
+
+	{
+		"laytan/cloak.nvim",
+		config = function()
+			require("cloak").setup({
+				enabled = true,
+				cloak_character = "*",
+				patterns = {
+					{
+						file_pattern = "*",
+						cloak_pattern = {
+							-- Redact JWTs
+							"eyJ[A-Za-z0-9-_=]+.eyJ[A-Za-z0-9-_=]+.[A-Za-z0-9-_.+/=]+",
+							-- Redact API tokens
+							"ghp_[0-9a-zA-Z]{36}",
+							"gho_[0-9a-zA-Z]{36}",
+							"ghu_[0-9a-zA-Z]{36}",
+							"ghs_[0-9a-zA-Z]{36}",
+							"ghr_[0-9a-zA-Z]{36}",
+							-- Redact cryptocurrency addresses
+							"^(bc1|[13])[a-zA-HJ-NP-Z0-9]{25,39}$",
+							"^0x[a-fA-F0-9]{40}$",
+							-- Redact seed phrases
+							"([a-z]+ ){11,23}[a-z]+",
+						},
+					},
+				},
+			})
+		end,
+	},
 })
