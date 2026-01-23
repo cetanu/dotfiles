@@ -15,9 +15,6 @@ CMD_KEYMAP = function(mode, key, command)
 end
 
 require("vsy.plugins")
-
-vim.cmd("colorscheme kanagawa")
-
 require("vsy.options")
 require("vsy.keymaps")
 require("vsy.treesitter")
