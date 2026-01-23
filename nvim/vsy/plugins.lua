@@ -51,9 +51,6 @@ require("lazy").setup({
 	-- Key mapping helpers -- like which-key
 	"cetanu/key-menu.nvim",
 
-	-- Add indentation guides even on blank lines
-	"lukas-reineke/indent-blankline.nvim",
-
 	-- Add git related info in the signs columns and popups
 	{
 		"TimUntersberger/neogit",
@@ -149,7 +146,33 @@ require("lazy").setup({
 	"jubnzv/virtual-types.nvim",
 
 	-- Theme
-	"rebelot/kanagawa.nvim",
+	-- {
+	-- 	"rebelot/kanagawa.nvim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	config = function()
+	-- 		vim.cmd("colorscheme kanagawa")
+	-- 	end,
+	-- },
+
+	-- {
+	-- 	"vague-theme/vague.nvim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	config = function()
+	-- 		vim.cmd("colorscheme vague")
+	-- 	end,
+	-- },
+	--
+	--
+	{
+		"srcery-colors/srcery-vim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			vim.cmd("colorscheme srcery")
+		end,
+	},
 
 	-- Status line
 	"tjdevries/express_line.nvim",
@@ -231,6 +254,24 @@ require("lazy").setup({
 		"nanozuki/tabby.nvim",
 	},
 
+	-- hightlight hex colors
+	{
+		"norcalli/nvim-colorizer.lua",
+		lazy = true,
+		config = function()
+			require("colorizer").setup()
+		end,
+	},
+
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		opts = {},
+		config = function()
+			require("ibl").setup()
+		end,
+	},
+
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
@@ -264,6 +305,21 @@ require("lazy").setup({
 					lsp_doc_border = false, -- add a border to hover docs and signature help
 				},
 			})
+		end,
+	},
+
+	{
+		"Bekaboo/dropbar.nvim",
+		-- optional, but required for fuzzy finder support
+		dependencies = {
+			"nvim-telescope/telescope-fzf-native.nvim",
+			build = "make",
+		},
+		config = function()
+			local dropbar_api = require("dropbar.api")
+			vim.keymap.set("n", "<Leader>;", dropbar_api.pick, { desc = "Pick symbols in winbar" })
+			vim.keymap.set("n", "[;", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
+			vim.keymap.set("n", "];", dropbar_api.select_next_context, { desc = "Select next context" })
 		end,
 	},
 })
