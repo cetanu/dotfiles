@@ -2,7 +2,6 @@ vim.opt.wrap = false
 vim.opt.errorbells = false
 vim.opt.undofile = true
 vim.opt.incsearch = true
-vim.opt.wrap = false
 vim.opt.backup = false
 vim.opt.swapfile = false
 vim.opt.hlsearch = true
