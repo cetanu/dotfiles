@@ -352,4 +352,12 @@ require("lazy").setup({
 			})
 		end,
 	},
+
+	{
+		"stevearc/quicker.nvim",
+		ft = "qf",
+		config = function()
+			require("quicker").setup()
+		end,
+	},
 })
