@@ -28,9 +28,7 @@ key_binding("q", "wqa", "Quit")
 key_binding("Q", "qa!", "Quit without saving")
 
 -- Git
-key_binding("g", "Neogit", "Neogit")
-key_menu.set("n", "<Space>G", { desc = "Git" })
-key_binding("Gc", "NeogitCommit", "Commit")
+key_binding("g", "Neogit kind=floating", "Neogit")
 
 -- LSP bindings
 key_menu.set("n", "<Space>l", { desc = "LSP" })
