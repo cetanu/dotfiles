@@ -154,6 +154,14 @@ require("lazy").setup({
 	-- 		vim.cmd("colorscheme kanagawa")
 	-- 	end,
 	-- },
+	{
+		"sainnhe/edge",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			vim.cmd("colorscheme edge")
+		end,
+	},
 
 	-- {
 	-- 	"vague-theme/vague.nvim",
@@ -165,14 +173,14 @@ require("lazy").setup({
 	-- },
 	--
 	--
-	{
-		"srcery-colors/srcery-vim",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			vim.cmd("colorscheme srcery")
-		end,
-	},
+	-- {
+	-- 	"srcery-colors/srcery-vim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	config = function()
+	-- 		vim.cmd("colorscheme srcery")
+	-- 	end,
+	-- },
 
 	-- Status line
 	"tjdevries/express_line.nvim",
