@@ -35,7 +35,7 @@ require("lazy").setup({
 	-- UI to select things (files, grep results, open buffers...)
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.8",
+		tag = "0.2.1",
 		-- or, branch = '0.1.x',
 		dependencies = { { "nvim-lua/plenary.nvim" } },
 	},
@@ -62,6 +62,7 @@ require("lazy").setup({
 		config = function()
 			require("neogit").setup({
 				integrations = {
+					telescope = true,
 					diffview = true,
 				},
 			})
@@ -92,13 +93,20 @@ require("lazy").setup({
 	"nvim-treesitter/nvim-treesitter-textobjects",
 
 	-- Completion
-	"hrsh7th/cmp-nvim-lsp",
-	"hrsh7th/cmp-buffer",
-	"hrsh7th/cmp-path",
-	"hrsh7th/cmp-cmdline",
-	"hrsh7th/nvim-cmp",
-	"saadparwaiz1/cmp_luasnip",
-	--
+	{
+		"saghen/blink.cmp",
+		dependencies = { "rafamadriz/friendly-snippets" },
+		version = "1.*",
+		opts = {
+			keymap = { preset = "default" },
+			sources = {
+				default = { "lsp", "path", "snippets", "buffer" },
+			},
+			fuzzy = { implementation = "prefer_rust_with_warning" },
+		},
+		opts_extend = { "sources.default" },
+	},
+
 	-- -- Snippets plugin
 	{
 		"L3MON4D3/LuaSnip",
@@ -242,11 +250,15 @@ require("lazy").setup({
 		end,
 	},
 
-	-- Copilot kekw
-	-- {
-	-- 	"github/copilot.vim",
-	-- },
+	-- AI auto-complete
+	{
+		"supermaven-inc/supermaven-nvim",
+		config = function()
+			require("supermaven-nvim").setup({})
+		end,
+	},
 
+	-- My plugins
 	{ "cetanu/taskrunner.nvim" },
 	{ "cetanu/python-env.nvim" },
 	{
@@ -292,41 +304,41 @@ require("lazy").setup({
 		end,
 	},
 
-	{
-		"folke/noice.nvim",
-		event = "VeryLazy",
-		opts = {
-			-- add any options here
-		},
-		dependencies = {
-			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-			"MunifTanjim/nui.nvim",
-			-- OPTIONAL:
-			--   `nvim-notify` is only needed, if you want to use the notification view.
-			--   If not available, we use `mini` as the fallback
-			-- "rcarriga/nvim-notify",
-		},
-		config = function()
-			require("noice").setup({
-				lsp = {
-					-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-					override = {
-						["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-						["vim.lsp.util.stylize_markdown"] = true,
-						["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
-					},
-				},
-				-- you can enable a preset for easier configuration
-				presets = {
-					bottom_search = true, -- use a classic bottom cmdline for search
-					command_palette = true, -- position the cmdline and popupmenu together
-					long_message_to_split = true, -- long messages will be sent to a split
-					inc_rename = false, -- enables an input dialog for inc-rename.nvim
-					lsp_doc_border = false, -- add a border to hover docs and signature help
-				},
-			})
-		end,
-	},
+	-- {
+	-- 	"folke/noice.nvim",
+	-- 	event = "VeryLazy",
+	-- 	opts = {
+	-- 		-- add any options here
+	-- 	},
+	-- 	dependencies = {
+	-- 		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+	-- 		"MunifTanjim/nui.nvim",
+	-- 		-- OPTIONAL:
+	-- 		--   `nvim-notify` is only needed, if you want to use the notification view.
+	-- 		--   If not available, we use `mini` as the fallback
+	-- 		-- "rcarriga/nvim-notify",
+	-- 	},
+	-- 	config = function()
+	-- 		require("noice").setup({
+	-- 			lsp = {
+	-- 				-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+	-- 				override = {
+	-- 					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+	-- 					["vim.lsp.util.stylize_markdown"] = true,
+	-- 					["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+	-- 				},
+	-- 			},
+	-- 			-- you can enable a preset for easier configuration
+	-- 			presets = {
+	-- 				bottom_search = true, -- use a classic bottom cmdline for search
+	-- 				command_palette = true, -- position the cmdline and popupmenu together
+	-- 				long_message_to_split = true, -- long messages will be sent to a split
+	-- 				inc_rename = false, -- enables an input dialog for inc-rename.nvim
+	-- 				lsp_doc_border = false, -- add a border to hover docs and signature help
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 
 	-- {
 	-- 	"Bekaboo/dropbar.nvim",
