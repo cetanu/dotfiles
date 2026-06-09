@@ -43,6 +43,7 @@ local servers = {
 	"bashls",
 	"awk_ls",
 	"ocamllsp",
+    "pyright",
 }
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup({

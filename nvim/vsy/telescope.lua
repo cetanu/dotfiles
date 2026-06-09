@@ -13,7 +13,7 @@ local function live_multigrep(opts)
 			if not prompt or prompt == "" then
 				return
 			end
-			local parts = vim.split(prompt, " " + " ")
+			local parts = vim.split(prompt, "  ")
 			local args = { "rg" }
 			if parts[1] then
 				-- e?
@@ -57,4 +57,4 @@ telescope.setup({
 		},
 	},
 })
-telescope.load_extension("projects")
+--telescope.load_extension("projects")

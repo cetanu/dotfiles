@@ -39,14 +39,19 @@ require("lazy").setup({
 		-- or, branch = '0.1.x',
 		dependencies = { { "nvim-lua/plenary.nvim" } },
 	},
-	{
-		"ahmedkhalf/project.nvim",
-		config = function()
-			require("project_nvim").setup({
-				scope_chdir = "tab",
-			})
-		end,
-	},
+    {
+      'DrKJeff16/project.nvim',
+      dependencies = { -- OPTIONAL. Choose any of the following
+        {
+          'nvim-telescope/telescope.nvim',
+          dependencies = { 'nvim-lua/plenary.nvim' },
+        },
+        'wsdjeg/picker.nvim',
+        'folke/snacks.nvim',
+        'ibhagwan/fzf-lua',
+      },
+      opts = {},
+    },
 
 	-- Key mapping helpers -- like which-key
 	"cetanu/key-menu.nvim",
@@ -75,7 +80,14 @@ require("lazy").setup({
 	},
 
 	-- Treesitter
-	"nvim-treesitter/nvim-treesitter",
+    {
+        "nvim-treesitter/nvim-treesitter",
+        branch = "master",
+        build = ":TSUpdate",
+        config = function()
+            require("vsy.treesitter")
+        end
+    },
 	-- "nvim-treesitter/nvim-treesitter-context",
 	"nvim-treesitter/nvim-treesitter-textobjects",
 
@@ -316,20 +328,20 @@ require("lazy").setup({
 		end,
 	},
 
-	{
-		"Bekaboo/dropbar.nvim",
-		-- optional, but required for fuzzy finder support
-		dependencies = {
-			"nvim-telescope/telescope-fzf-native.nvim",
-			build = "make",
-		},
-		config = function()
-			local dropbar_api = require("dropbar.api")
-			vim.keymap.set("n", "<Leader>;", dropbar_api.pick, { desc = "Pick symbols in winbar" })
-			vim.keymap.set("n", "[;", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
-			vim.keymap.set("n", "];", dropbar_api.select_next_context, { desc = "Select next context" })
-		end,
-	},
+	-- {
+	-- 	"Bekaboo/dropbar.nvim",
+	-- 	-- optional, but required for fuzzy finder support
+	-- 	dependencies = {
+	-- 		"nvim-telescope/telescope-fzf-native.nvim",
+	-- 		build = "make",
+	-- 	},
+	-- 	config = function()
+	-- 		local dropbar_api = require("dropbar.api")
+	-- 		vim.keymap.set("n", "<Leader>;", dropbar_api.pick, { desc = "Pick symbols in winbar" })
+	-- 		vim.keymap.set("n", "[;", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
+	-- 		vim.keymap.set("n", "];", dropbar_api.select_next_context, { desc = "Select next context" })
+	-- 	end,
+	-- },
 
 	{
 		"laytan/cloak.nvim",
