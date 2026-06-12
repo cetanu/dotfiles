@@ -39,19 +39,20 @@ require("lazy").setup({
 		-- or, branch = '0.1.x',
 		dependencies = { { "nvim-lua/plenary.nvim" } },
 	},
-    {
-      'DrKJeff16/project.nvim',
-      dependencies = { -- OPTIONAL. Choose any of the following
-        {
-          'nvim-telescope/telescope.nvim',
-          dependencies = { 'nvim-lua/plenary.nvim' },
-        },
-        'wsdjeg/picker.nvim',
-        'folke/snacks.nvim',
-        'ibhagwan/fzf-lua',
-      },
-      opts = {},
-    },
+	{
+		"DrKJeff16/project.nvim",
+		config = function() end,
+		dependencies = { -- OPTIONAL. Choose any of the following
+			{
+				"nvim-telescope/telescope.nvim",
+				dependencies = { "nvim-lua/plenary.nvim" },
+			},
+			"wsdjeg/picker.nvim",
+			"folke/snacks.nvim",
+			"ibhagwan/fzf-lua",
+		},
+		opts = {},
+	},
 
 	-- Key mapping helpers -- like which-key
 	"cetanu/key-menu.nvim",
@@ -81,14 +82,14 @@ require("lazy").setup({
 	},
 
 	-- Treesitter
-    {
-        "nvim-treesitter/nvim-treesitter",
-        branch = "master",
-        build = ":TSUpdate",
-        config = function()
-            require("vsy.treesitter")
-        end
-    },
+	{
+		"nvim-treesitter/nvim-treesitter",
+		branch = "master",
+		build = ":TSUpdate",
+		config = function()
+			require("vsy.treesitter")
+		end,
+	},
 	-- "nvim-treesitter/nvim-treesitter-context",
 	"nvim-treesitter/nvim-treesitter-textobjects",
 
