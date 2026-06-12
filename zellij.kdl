@@ -1,0 +1,76 @@
+// Zellij Configuration File
+// Built for a clean, visually minimal terminal workspace
+
+// Set default theme to match terminal color scheme (Srcery is Ghostty default)
+theme "srcery"
+
+// Custom themes defined using exact color palettes
+themes {
+    // Srcery: earthy, high-contrast palette
+    srcery {
+        fg "#fce8c3"
+        bg "#1c1b19"
+        black "#1c1b19"
+        red "#ef2f27"
+        green "#519f50"
+        yellow "#fbb829"
+        blue "#2c78bf"
+        magenta "#e02c6d"
+        cyan "#0aaeb3"
+        white "#baa67f"
+        orange "#fed06e"
+    }
+
+    // Edge Dark: soft contrast, organic aesthetic
+    edge-dark {
+        fg "#c5cdd9"
+        bg "#2c2e34"
+        black "#202023"
+        red "#ec7279"
+        green "#a0c980"
+        yellow "#deb974"
+        blue "#6cb6eb"
+        magenta "#d38aea"
+        cyan "#5dbbc1"
+        white "#c5cdd9"
+        orange "#e3977a"
+    }
+}
+
+// Visual cleanups:
+// Disable the thick borders and pane headers for a completely clean, borderless window
+pane_frames false
+
+// Use the built-in single-line status bar at the bottom instead of top & bottom bars
+default_layout "compact"
+
+// Shell integration:
+// Set Fish as the default shell (matching your configuration)
+default_shell "fish"
+
+// Quality of Life settings:
+default_mode "locked"
+copy_on_select true
+mouse_mode true
+scroll_buffer_size 10000
+
+// Keybindings customization:
+keybinds {
+    shared_except "locked" {
+        // Map Ctrl+Shift+? (which terminals send as Ctrl+? or Ctrl+/)
+        bind "Ctrl ?" "Ctrl /" {
+            Run "bat" "--color=always" "--plain" "--paging=always" "/Users/vsyrakis/.config/zellij/cheatsheet.md" {
+                floating true
+                close_on_exit true
+            }
+        }
+
+        // Floating Yazi File Manager
+        bind "Alt y" {
+            Run "yazi" {
+                floating true
+                close_on_exit true
+            }
+        }
+    }
+}

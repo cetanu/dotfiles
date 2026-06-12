@@ -17,3 +17,7 @@ ln -f alacritty.yml ~/.config/alacritty/alacritty.yml 2>/dev/null; and echo "ala
 
 mkdir -p ~/.config/ghostty
 ln -f ghostty.config ~/.config/ghostty/config 2>/dev/null; and echo "ghostty config installed"
+
+mkdir -p ~/.config/zellij
+ln -f zellij.kdl ~/.config/zellij/config.kdl 2>/dev/null; and echo "zellij config installed"
+ln -f cheatsheet.md ~/.config/zellij/cheatsheet.md 2>/dev/null; and echo "zellij cheatsheet installed"

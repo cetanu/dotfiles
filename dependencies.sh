@@ -131,3 +131,7 @@ echo "rust-analyzer installed"
 # wezterm
 [[ -f $(which wezterm) ]] || brew install --cask wezterm
 echo "wezterm installed"
+
+# zellij
+[[ -f $(which zellij) ]] || brew install zellij
+echo "zellij installed"

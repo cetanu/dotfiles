@@ -42,3 +42,18 @@ test -d $PYENV_ROOT/bin; and fish_add_path $PYENV_ROOT/bin
 
 set -x STARSHIP_CONFIG ~/.config/starship/starship.toml
 starship init fish | source
+
+# Zellij Integrations
+alias z="zellij"
+alias za="zellij attach"
+alias zls="zellij list-sessions"
+
+function zn
+    if set -q ZELLIJ
+        echo "Already inside a Zellij session!"
+    else
+        # Attach to session named after current directory, or create one if it doesn't exist
+        set -l session_name (basename (pwd) | tr '.' '_')
+        zellij attach -c $session_name
+    end
+end
