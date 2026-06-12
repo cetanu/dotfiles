@@ -26,12 +26,15 @@ set PATH "$HOME/.local/bin:$PATH"
 set PATH "$HOME/.poetry/bin:$PATH"
 set PATH "$HOME/go/bin:$PATH"
 set PATH "/opt/homebrew/bin:$PATH"
+set PATH "/home/linuxbrew/.linuxbrew/bin:$PATH"
 
 set -Ux EDITOR "nvim"
 fnm env --use-on-cd --shell fish | source
 
 status is-login; and pyenv init --path | source
 pyenv init - | source 1>/dev/null
+
+eval (opam env --switch=default)
 
 if test -e "$HOME/.config/cloudtoken/bashrc_additions"
     source "$HOME/.config/cloudtoken/bashrc_additions"

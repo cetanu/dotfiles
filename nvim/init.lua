@@ -16,9 +16,9 @@ end
 
 require("vsy.plugins")
 require("vsy.options")
-require("vsy.keymaps")
 require("vsy.telescope")
 require("vsy.statusline")
 require("vsy.treesitter")
 require("vsy.snippets")
 require("vsy.lsp")
+require("vsy.keymaps")
