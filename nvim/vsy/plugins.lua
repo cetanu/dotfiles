@@ -251,12 +251,12 @@ require("lazy").setup({
 	},
 
 	-- AI auto-complete
-	{
-		"supermaven-inc/supermaven-nvim",
-		config = function()
-			require("supermaven-nvim").setup({})
-		end,
-	},
+	-- {
+	-- 	"supermaven-inc/supermaven-nvim",
+	-- 	config = function()
+	-- 		require("supermaven-nvim").setup({})
+	-- 	end,
+	-- },
 
 	-- My plugins
 	{ "cetanu/taskrunner.nvim" },
