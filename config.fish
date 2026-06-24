@@ -21,6 +21,7 @@ alias dkara="dkill; drm; drmi"
 # Wireshark
 alias wireshark="/Applications/Wireshark.app/Contents/MacOS/Wireshark"
 
+set PATH "$HOME/.local/share/bob/nvim-bin:$PATH"
 set PATH "$HOME/.cargo/bin:$PATH"
 set PATH "$HOME/.local/bin:$PATH"
 set PATH "$HOME/.poetry/bin:$PATH"
@@ -34,7 +35,7 @@ fnm env --use-on-cd --shell fish | source
 status is-login; and pyenv init --path | source
 pyenv init - | source 1>/dev/null
 
-eval (opam env --switch=default)
+#eval (opam env --switch=default)
 
 if test -e "$HOME/.config/cloudtoken/bashrc_additions"
     source "$HOME/.config/cloudtoken/bashrc_additions"

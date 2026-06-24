@@ -60,21 +60,7 @@ done
 echo "Rust utils installed"
 
 # Neovim
-# TODO: maybe not necessary with bob-nvim
-if [[ ! -f $(which nvim) ]]; then
-	git clone https://github.com/neovim/neovim --depth 1
-	xcode-select --install
-	brew install ninja cmake gettext curl lua luv lpeg
-	pushd neovim
-		git checkout stable
-		make CMAKE_BUILD_TYPE=RelWithDebInfo
-		sudo make install
-		cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$HOME/.local -G Ninja
-		cmake --build build
-		cmake --install build
-	popd
-	rm -rf neovim
-fi
+bob install stable
 echo "Neovim installed"
 
 
@@ -96,6 +82,8 @@ fi
 PY_VERSIONS=(
     3.11.0
     3.12.0
+    3.13.0
+    3.14.0
 )
 for ver in ${PY_VERSIONS[@]}; do
     INSTALLED=$(pyenv versions | grep ${ver})
@@ -103,7 +91,7 @@ for ver in ${PY_VERSIONS[@]}; do
         echo "Installing Python ${ver}"
         pyenv install ${ver}
     else
-        pyenv global 3.12.0
+        pyenv global 3.14.0
         pyenv init - | source
         python -m pip install --upgrade pip pipx poetry uv
         python -m pip install pynvim salt-lsp
