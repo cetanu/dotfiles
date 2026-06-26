@@ -1,0 +1,22 @@
+# Alacritty configuration for streaming
+# Extends the base configuration but increases font size and adjusts padding for legibility on streams.
+
+[general]
+import = [
+    "~/.config/alacritty/alacritty.toml"
+]
+
+[font]
+# Large font size so stream viewers (even on mobile/lower resolutions) can read the text easily.
+# Default is 14; stream mode sets it to 18. Adjust as needed.
+size = 18
+
+[window.padding]
+# Slightly increased padding for cleaner presentation
+x = 16
+y = 16
+
+[window.dimensions]
+# Comfortable window size for sharing (16:9 ratio friendly)
+columns = 100
+lines = 28

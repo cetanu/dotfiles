@@ -14,6 +14,7 @@ ln -f wezterm.lua ~/.wezterm.lua 2>/dev/null; and echo "wezterm config installed
 
 mkdir -p ~/.config/alacritty
 ln -f alacritty.toml ~/.config/alacritty/alacritty.toml 2>/dev/null; and echo "alacritty config installed"
+ln -f alacritty-stream.toml ~/.config/alacritty/alacritty-stream.toml 2>/dev/null; and echo "alacritty stream config installed"
 
 mkdir -p ~/.config/ghostty
 ln -f ghostty.config ~/.config/ghostty/config 2>/dev/null; and echo "ghostty config installed"
@@ -21,3 +22,4 @@ ln -f ghostty.config ~/.config/ghostty/config 2>/dev/null; and echo "ghostty con
 mkdir -p ~/.config/zellij
 ln -f zellij.kdl ~/.config/zellij/config.kdl 2>/dev/null; and echo "zellij config installed"
 ln -f cheatsheet.md ~/.config/zellij/cheatsheet.md 2>/dev/null; and echo "zellij cheatsheet installed"
+

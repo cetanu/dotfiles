@@ -63,3 +63,31 @@ function zn
         zellij attach -c $session_name
     end
 end
+
+# Stream Mode integration
+function stream
+    if set -q ZELLIJ
+        echo "Already inside a Zellij session!"
+        return 1
+    end
+
+    # 1. If running inside Alacritty, increase font size dynamically
+    if set -q ALACRITTY_WINDOW_ID; or set -q ALACRITTY_SOCKET
+        alacritty msg config "font.size=18" 2>/dev/null
+    end
+
+    # 2. Attach to or create a Zellij session in stream mode
+    set -l session_name "stream"
+    if test (count $argv) -gt 0
+        set session_name $argv[1]
+    end
+    zellij --config ~/.config/zellij/config.kdl attach -c $session_name
+
+    # 3. Restore Alacritty settings on exit
+    if set -q ALACRITTY_WINDOW_ID; or set -q ALACRITTY_SOCKET
+        alacritty msg config --reset 2>/dev/null
+    end
+end
+
+
+
