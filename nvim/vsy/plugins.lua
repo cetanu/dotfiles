@@ -35,7 +35,7 @@ require("lazy").setup({
 	-- UI to select things (files, grep results, open buffers...)
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.2.1",
+		tag = "v0.2.1",
 		-- or, branch = '0.1.x',
 		dependencies = { { "nvim-lua/plenary.nvim" } },
 	},
