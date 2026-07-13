@@ -385,4 +385,9 @@ require("lazy").setup({
 			require("quicker").setup()
 		end,
 	},
+
+	{
+		"nstefan002/screenkey.nvim",
+        lazy = false,
+	},
 })
