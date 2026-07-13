@@ -84,11 +84,8 @@ require("lazy").setup({
 	-- Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
-		branch = "master",
+		branch = "main",
 		build = ":TSUpdate",
-		config = function()
-			require("vsy.treesitter")
-		end,
 	},
 	-- "nvim-treesitter/nvim-treesitter-context",
 	"nvim-treesitter/nvim-treesitter-textobjects",
