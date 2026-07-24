@@ -26,10 +26,10 @@ set PATH "$HOME/.cargo/bin:$PATH"
 set PATH "$HOME/.local/bin:$PATH"
 set PATH "$HOME/.poetry/bin:$PATH"
 set PATH "$HOME/go/bin:$PATH"
+set PATH "$HOME/.local/share/zerobrew/prefix/bin:$PATH"
+set PATH "$HOME/.local/share/zerobrew/prefix/Cellar/node/26.4.0/bin:$PATH"
 set PATH "/opt/homebrew/bin:$PATH"
 set PATH "/home/linuxbrew/.linuxbrew/bin:$PATH"
-set PATH "$HOME/.local/share/zerobrew/prefix/bin:$PATH"
-
 
 set -Ux EDITOR "nvim"
 fnm env --use-on-cd --shell fish | source
@@ -88,6 +88,3 @@ function stream
         alacritty msg config --reset 2>/dev/null
     end
 end
-
-
-
