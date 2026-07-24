@@ -371,6 +371,8 @@ require("lazy").setup({
 							"^0x[a-fA-F0-9]{40}$",
 							-- Redact seed phrases
 							"([a-z]+ ){11,23}[a-z]+",
+                            -- RTMP URLs
+                            "rtmp://.*$",
 						},
 					},
 				},
