@@ -28,6 +28,7 @@ local servers = {
 	"bashls",
 	"awk_ls",
 	"ocamllsp",
+	"elixirls",
 	-- "ty",
 	-- "ruff",
 	"basedpyright",

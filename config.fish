@@ -36,6 +36,8 @@ set PATH "/home/linuxbrew/.linuxbrew/bin:$PATH"
 set -Ux EDITOR "nvim"
 fnm env --use-on-cd --shell fish | source
 
+export PULUMI_CONFIG_PASSPHRASE_FILE="$HOME/.pulumi/passphrase"
+
 set -Ux PYENV_ROOT $HOME/.pyenv
 test -d $PYENV_ROOT/bin; and fish_add_path $PYENV_ROOT/bin
 status is-login; and pyenv init --path | source

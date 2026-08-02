@@ -85,7 +85,11 @@ require("lazy").setup({
 	{
 		"nvim-treesitter/nvim-treesitter",
 		branch = "main",
+		lazy = false,
 		build = ":TSUpdate",
+		config = function()
+			require("vsy.treesitter")
+		end,
 	},
 	-- "nvim-treesitter/nvim-treesitter-context",
 	"nvim-treesitter/nvim-treesitter-textobjects",
@@ -276,6 +280,20 @@ require("lazy").setup({
 			require("eyeliner").setup({
 				highlight_on_key = true,
 				dim = true,
+				disabled_filetypes = {
+					"NeogitPopup",
+					"NeogitStatus",
+					"NeogitCommitSelectView",
+					"NeogitCommitView",
+					"NeogitLogView",
+					"NeogitDiffView",
+					"NeogitStashView",
+					"NeogitRefsView",
+					"NeogitReflogView",
+					"NeogitConsole",
+					"NeogitGitCommandHistory",
+				},
+				disabled_buftypes = { "nofile" },
 			})
 		end,
 	},
@@ -372,7 +390,7 @@ require("lazy").setup({
 							-- Redact seed phrases
 							"([a-z]+ ){11,23}[a-z]+",
                             -- RTMP URLs
-                            "rtmp://.*$",
+                            "stream_key = \"([^\"]*)\"",
 						},
 					},
 				},
