@@ -23,3 +23,4 @@ mkdir -p ~/.config/zellij
 ln -f zellij.kdl ~/.config/zellij/config.kdl 2>/dev/null; and echo "zellij config installed"
 ln -f cheatsheet.md ~/.config/zellij/cheatsheet.md 2>/dev/null; and echo "zellij cheatsheet installed"
 
+ln -f AGENTS.md ~/AGENTS.md 2>/dev/null; and echo "AGENTS.md installed"

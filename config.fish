@@ -92,3 +92,6 @@ function stream
         alacritty msg config --reset 2>/dev/null
     end
 end
+
+# Fix pkg-config not finding libudev.pc for compiling cosmic-comp
+set -gx PKG_CONFIG_PATH /usr/lib/x86_64-linux-gnu/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig $PKG_CONFIG_PATH
