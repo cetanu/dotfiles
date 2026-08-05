@@ -95,7 +95,6 @@ require("lazy").setup({
 	-- Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
-		branch = "main",
 		lazy = false,
 		build = ":TSUpdate",
 		config = function()
@@ -257,7 +256,7 @@ require("lazy").setup({
 				},
 				format_on_save = {
 					timeout_ms = 500,
-					lsp_fallback = false,
+					lsp_format = "never",
 				},
 			})
 		end,
@@ -400,8 +399,6 @@ require("lazy").setup({
 							"^0x[a-fA-F0-9]{40}$",
 							-- Redact seed phrases
 							"([a-z]+ ){11,23}[a-z]+",
-                            -- RTMP URLs
-                            "stream_key = \"([^\"]*)\"",
 						},
 					},
 				},
@@ -419,6 +416,7 @@ require("lazy").setup({
 
 	{
 		"nstefan002/screenkey.nvim",
-        lazy = false,
+		lazy = false,
 	},
 })
+local x = 1
