@@ -40,9 +40,9 @@ key_binding("la", "vim.lsp.buf.code_action()", "Code Action", nil, true)
 key_binding("le", "vim.lsp.diagnostic.get_line_diagnostics()", "Diagnostics", nil, true)
 
 -- Telescope
-key_menu.set("n", "<Space>t", { desc = "Telescope" })
-key_binding("tf", "Telescope find_files", "Find Files")
-key_binding("tg", "Telescope live_grep", "Grep")
+key_menu.set("n", "<Space>t", { desc = " Telescope" })
+key_binding("tf", "Telescope find_files", "󰈔 Find Files")
+key_binding("tg", "Telescope live_grep", "󰈭 Grep")
 key_binding("tp", "Telescope projects", "Switch project")
 key_binding("tS", "require('telescope.builtin').live_grep({cwd = '~/Documents'})", "Search all projects", nil, true)
 key_binding("td", "Telescope diagnostics", "Diagnostics")

@@ -55,7 +55,18 @@ require("lazy").setup({
 	},
 
 	-- Key mapping helpers -- like which-key
-	"cetanu/key-menu.nvim",
+	{
+		"cetanu/key-menu.nvim",
+		config = function()
+			require("key-menu").setup({
+				window = {
+					border = "rounded",
+					winblend = 10,
+					position = "center",
+				},
+			})
+		end,
+	},
 
 	-- Add git related info in the signs columns and popups
 	{
