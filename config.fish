@@ -20,10 +20,10 @@ alias dkara="dkill; drm; drmi"
 # Wireshark
 alias wireshark="/Applications/Wireshark.app/Contents/MacOS/Wireshark"
 
-set PATH "$HOME/.local/share/bob/nvim-bin:$PATH"
 set PATH "$HOME/.cargo/bin:$PATH"
 set PATH "$HOME/.local/bin:$PATH"
 set PATH "$HOME/.poetry/bin:$PATH"
+set PATH "$HOME/.local/share/bob/nvim-bin:$PATH"
 set PATH "$HOME/.pulumi/bin:$PATH"
 set PATH "$HOME/.local/go/bin:$PATH"
 set PATH "$HOME/go/bin:$PATH"
@@ -31,7 +31,6 @@ set PATH "$HOME/.local/share/zerobrew/prefix/bin:$PATH"
 set PATH "$HOME/.local/share/zerobrew/prefix/Cellar/node/26.4.0/bin:$PATH"
 set PATH "/opt/homebrew/bin:$PATH"
 set PATH "/home/linuxbrew/.linuxbrew/bin:$PATH"
-set PATH "$HOME/.local/share/bob/nvim-bin:$PATH"
 
 set -Ux EDITOR "nvim"
 fnm env --use-on-cd --shell fish | source
@@ -95,3 +94,6 @@ end
 
 # Fix pkg-config not finding libudev.pc for compiling cosmic-comp
 set -gx PKG_CONFIG_PATH /usr/lib/x86_64-linux-gnu/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig $PKG_CONFIG_PATH
+
+# Keep mise activation after local PATH changes so managed tools win.
+mise activate fish | source

@@ -1,0 +1,119 @@
+# Machine packages are installed only by `mise bootstrap`.
+[bootstrap.packages]
+# Linux build prerequisites
+"apt:ca-certificates" = "latest"
+"apt:curl" = "latest"
+"apt:git" = "latest"
+"apt:build-essential" = "latest"
+"apt:clang" = "latest"
+"apt:cmake" = "latest"
+"apt:libssl-dev" = "latest"
+"apt:pkg-config" = "latest"
+
+# CLI tools and libraries
+"brew:yazi" = "latest"
+"brew:ffmpeg" = "latest"
+"brew:sevenzip" = "latest"
+"brew:jq" = "latest"
+"brew:poppler" = "latest"
+"brew:fd" = "latest"
+"brew:ripgrep" = "latest"
+"brew:fzf" = "latest"
+"brew:zoxide" = "latest"
+"brew:resvg" = "latest"
+"brew:imagemagick" = "latest"
+"brew:luarocks" = "latest"
+"brew:tree-sitter" = "latest"
+"brew:tree-sitter-cli" = "latest"
+"brew:lazygit" = "latest"
+"brew:llvm" = "latest"
+"brew:gopls" = "latest"
+"brew:tectonic" = "latest"
+"brew:chafa" = "latest"
+"brew:fish" = "latest"
+"brew:lua-language-server" = "latest"
+"brew:rust-analyzer" = "latest"
+"brew:zellij" = "latest"
+"brew:docker" = "latest"
+"brew:docker-compose" = "latest"
+"brew:fnm" = "latest"
+
+# GUI applications and fonts
+"brew-cask:font-symbols-only-nerd-font" = { os = ["macos", "linux"] }
+"brew-cask:orbstack" = { os = "macos" }
+"brew-cask:wezterm" = { os = "macos" }
+
+[tools]
+# Runtimes
+node = "lts"
+python = ["3.11", "3.12", "3.13", "3.14"]
+rust = "stable"
+uv = "latest"
+
+# Rust command-line tools
+"cargo:bat" = "latest"
+"cargo:lsd" = "latest"
+"cargo:git-delta" = "latest"
+"cargo:git-cliff" = "latest"
+"cargo:dua-cli" = "latest"
+"cargo:hyperfine" = "latest"
+"cargo:oha" = "latest"
+"cargo:starship" = "latest"
+"cargo:bob-nvim" = { version = "latest", depends = "rust" }
+"cargo:git-interactive-rebase-tool" = "latest"
+"cargo:diskonaut" = "latest"
+"cargo:envio" = "latest"
+"cargo:csvlens" = "latest"
+"cargo:gitlogue" = "latest"
+"cargo:ducker" = "latest"
+"cargo:flamelens" = "latest"
+"cargo:jwt-ui" = "latest"
+"cargo:jless" = "latest"
+"cargo:zerobrew" = "latest"
+
+# Python command-line tools
+"pipx:pipx" = "latest"
+"pipx:poetry" = { version = "latest", depends = "python" }
+"pipx:ruff" = { version = "latest", depends = "python" }
+"pipx:tiptop" = { version = "latest", depends = "python" }
+
+# Node-based language servers and editor tools
+"npm:bash-language-server" = "latest"
+"npm:yaml-language-server" = "latest"
+"npm:awk-language-server" = "latest"
+"npm:dockerfile-language-server-nodejs" = "latest"
+"npm:vscode-langservers-extracted" = "latest"
+"npm:typescript-language-server" = "latest"
+"npm:typescript" = "latest"
+"npm:@mermaid-js/mermaid-cli" = "latest"
+"npm:neovim" = "latest"
+
+[tasks.bootstrap]
+description = "Install Neovim and Python packages used by Neovim and Salt"
+run = [
+  "bob use stable",
+  "python3.14 -m pip install --user pynvim salt-lsp",
+]
+
+[tasks."test:bootstrap"]
+description = "Build the Pop!_OS bootstrap smoke-test container"
+run = "docker build --platform linux/amd64 --file test/popos/Dockerfile --tag dotfiles-bootstrap-popos ."
+
+[dotfiles]
+"~/.config/nvim/init.lua" = { source = "nvim/init.lua", mode = "symlink" }
+"~/.config/nvim/lua/vsy" = { source = "nvim/vsy", mode = "symlink-each" }
+"~/.gitconfig" = { source = "gitconfig", mode = "symlink" }
+"~/.config/fish/config.fish" = { source = "config.fish", mode = "symlink" }
+"~/.config/starship/starship.toml" = { source = "starship.toml", mode = "symlink" }
+"~/.wezterm.lua" = { source = "wezterm.lua", mode = "symlink" }
+"~/.config/alacritty/alacritty.toml" = { source = "alacritty.toml", mode = "symlink" }
+"~/.config/alacritty/alacritty-stream.toml" = { source = "alacritty-stream.toml", mode = "symlink" }
+"~/.config/ghostty/config" = { source = "ghostty.config", mode = "symlink" }
+"~/.config/zellij/config.kdl" = { source = "zellij.kdl", mode = "symlink" }
+"~/.config/zellij/cheatsheet.md" = { source = "cheatsheet.md", mode = "symlink" }
+"~/AGENTS.md" = { source = "AGENTS.md", mode = "symlink" }
+
+# Fish activation is in config.fish because that file is managed as a whole.
+# Zsh gets a marker-delimited activation block managed by mise.
+[bootstrap.mise_shell_activate]
+zsh = true
