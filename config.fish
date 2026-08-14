@@ -3,7 +3,6 @@ alias ls="lsd --long --human-readable --group-dirs first --gitsort --git --block
 alias lst="lsd --long --human-readable --group-dirs first --gitsort --git --blocks permission,size,date,git,name --date relative --size short --permission octal --tree --depth 2"
 alias cat="bat"
 alias grep="rg"
-alias dig="dog"
 
 alias vim="nvim"
 alias p="cd ~/Documents"
