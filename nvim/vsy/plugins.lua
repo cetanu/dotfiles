@@ -178,41 +178,31 @@ require("lazy").setup({
 	"jubnzv/virtual-types.nvim",
 
 	-- Theme
-	-- {
-	-- 	"rebelot/kanagawa.nvim",
-	-- 	lazy = false,
-	-- 	priority = 1000,
-	-- 	config = function()
-	-- 		vim.cmd("colorscheme kanagawa")
-	-- 	end,
-	-- },
+	{
+		"rebelot/kanagawa.nvim",
+		lazy = false,
+		priority = 1000,
+	},
 	{
 		"sainnhe/edge",
 		lazy = false,
 		priority = 1000,
-		config = function()
-			vim.cmd("colorscheme edge")
-		end,
 	},
-
-	-- {
-	-- 	"vague-theme/vague.nvim",
-	-- 	lazy = false,
-	-- 	priority = 1000,
-	-- 	config = function()
-	-- 		vim.cmd("colorscheme vague")
-	-- 	end,
-	-- },
-	--
-	--
-	-- {
-	-- 	"srcery-colors/srcery-vim",
-	-- 	lazy = false,
-	-- 	priority = 1000,
-	-- 	config = function()
-	-- 		vim.cmd("colorscheme srcery")
-	-- 	end,
-	-- },
+	{
+		"vague-theme/vague.nvim",
+		lazy = false,
+		priority = 1000,
+	},
+	{
+		"srcery-colors/srcery-vim",
+		lazy = false,
+		priority = 1000,
+	},
+	{
+		"mcauley-penney/techbase.nvim",
+		lazy = false,
+		priority = 1000,
+	},
 
 	-- Status line
 	"tjdevries/express_line.nvim",
@@ -419,4 +409,3 @@ require("lazy").setup({
 		lazy = false,
 	},
 })
-local x = 1
