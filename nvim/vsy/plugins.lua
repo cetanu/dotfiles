@@ -168,9 +168,10 @@ require("lazy").setup({
 			})
 		end,
 	},
-	-- Code and diagnostic navigation
+	-- symbol navigation
 	{
 		"stevearc/aerial.nvim",
+		event = "VeryLazy",
 		config = function()
 			require("aerial").setup()
 		end,
@@ -189,6 +190,11 @@ require("lazy").setup({
 		priority = 1000,
 	},
 	{
+		"sainnhe/everforest",
+		lazy = false,
+		priority = 1000,
+	},
+	{
 		"vague-theme/vague.nvim",
 		lazy = false,
 		priority = 1000,
@@ -200,6 +206,11 @@ require("lazy").setup({
 	},
 	{
 		"mcauley-penney/techbase.nvim",
+		lazy = false,
+		priority = 1000,
+	},
+	{
+		"folke/tokyonight.nvim",
 		lazy = false,
 		priority = 1000,
 	},

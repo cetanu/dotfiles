@@ -43,19 +43,17 @@ key_binding("le", "vim.lsp.diagnostic.get_line_diagnostics()", "Diagnostics", ni
 key_menu.set("n", "<Space>t", { desc = " Telescope" })
 key_binding("tf", "Telescope find_files", "󰈔 Find Files")
 key_binding("tg", "Telescope live_grep", "󰈭 Grep")
-key_binding("tp", "Telescope projects", "Switch project")
 key_binding("tS", "require('telescope.builtin').live_grep({cwd = '~/Documents'})", "Search all projects", nil, true)
 key_binding("td", "Telescope diagnostics", "Diagnostics")
+key_binding("ta", "Telescope aerial", "Symbols")
 key_binding("tr", "Telescope oldfiles", "Recent files")
 key_binding("tb", "Telescope buffers", "Open buffers")
-key_binding("tc", "Telescope command_history", "Command History")
+key_binding("tC", "Telescope command_history", "Command History")
+key_binding("tc", "Telescope colorscheme", "Themes")
 
 -- Trouble
 key_binding("Td", "Trouble diagnostics", "Diagnostics")
 key_binding("Tt", "Trouble todo", "TO-DO comments")
-
--- Aerial
-key_binding("a", "AerialOpen", "Aerial menu")
 
 -- Oil
 key_binding("o", "Oil", "Edit files (oil)")
