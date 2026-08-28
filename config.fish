@@ -10,6 +10,8 @@ alias gitcf="git commit --amend; git push -f"
 alias gitp="git checkout master; git pull"
 alias gitr="git reset --hard HEAD"
 alias gits="git status"
+git config --global user.name "Vasilios Syrakis"
+git config --global user.email "syrakis@pm.me"
 
 # Docker
 alias dkill="docker ps -qa | xargs docker kill"
@@ -67,33 +69,19 @@ function zn
     end
 end
 
-# Stream Mode integration
-function stream
-    if set -q ZELLIJ
-        echo "Already inside a Zellij session!"
-        return 1
-    end
-
-    # 1. If running inside Alacritty, increase font size dynamically
-    if set -q ALACRITTY_WINDOW_ID; or set -q ALACRITTY_SOCKET
-        alacritty msg config "font.size=18" 2>/dev/null
-    end
-
-    # 2. Attach to or create a Zellij session in stream mode
-    set -l session_name "stream"
-    if test (count $argv) -gt 0
-        set session_name $argv[1]
-    end
-    zellij --config ~/.config/zellij/config.kdl attach -c $session_name
-
-    # 3. Restore Alacritty settings on exit
-    if set -q ALACRITTY_WINDOW_ID; or set -q ALACRITTY_SOCKET
-        alacritty msg config --reset 2>/dev/null
-    end
+# Ghostty Font & Stream Mode
+function ghostty-font -a size
+    test -n "$size"; or set size 16
+    sed -i --follow-symlinks "s/^font-size = .*/font-size = $size/" ~/.config/ghostty/config
+    pkill -SIGUSR2 -u (id -u) ghostty 2>/dev/null; or true
 end
+alias stream="ghostty-font 22"
+alias unstream="ghostty-font 16"
 
 # Fix pkg-config not finding libudev.pc for compiling cosmic-comp
 set -gx PKG_CONFIG_PATH /usr/lib/x86_64-linux-gnu/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig $PKG_CONFIG_PATH
 
 # Keep mise activation after local PATH changes so managed tools win.
 mise activate fish | source
+
+keymenu shell fish | source

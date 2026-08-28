@@ -1,0 +1,17 @@
+keybind("N", command: "nvim")
+
+group("g", description:"Git")
+keybind("gs", command: "git status")
+keybind("gr", command: "git reset --hard HEAD")
+keybind("gcf", command: "git commit --amend; git push -f")
+keybind("gp", command: "git pull -ff")
+
+group("c", description:"Cargo")
+keybind("ct", command: "cargo test")
+keybind("cc", command: "cargo clippy")
+keybind("cb", command: "cargo build")
+
+group("z", description:"Zellij")
+keybind("zn", command: "zellij")
+keybind("za", command: "zellij attach")
+keybind("zl", command: "zellij list-sessions")

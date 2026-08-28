@@ -25,3 +25,6 @@
 
 [init]
 	defaultBranch = master
+[user]
+	email = syrakis@pm.me
+	name = Vasilios Syrakis

@@ -111,9 +111,11 @@ run = "docker build --platform linux/amd64 --file test/popos/Dockerfile --tag do
 "~/.config/ghostty/config" = { source = "ghostty.config", mode = "symlink" }
 "~/.config/zellij/config.kdl" = { source = "zellij.kdl", mode = "symlink" }
 "~/.config/zellij/cheatsheet.md" = { source = "cheatsheet.md", mode = "symlink" }
+"~/.config/keymenu/config.keymenu" = { source = "config.keymenu", mode = "symlink" }
 "~/AGENTS.md" = { source = "AGENTS.md", mode = "symlink" }
 
 # Fish activation is in config.fish because that file is managed as a whole.
 # Zsh gets a marker-delimited activation block managed by mise.
 [bootstrap.mise_shell_activate]
 zsh = true
+fish = true

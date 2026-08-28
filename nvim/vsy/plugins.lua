@@ -420,3 +420,5 @@ require("lazy").setup({
 		lazy = false,
 	},
 })
+
+vim.cmd("colorscheme edge")
