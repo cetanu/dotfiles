@@ -284,6 +284,12 @@ require("lazy").setup({
 			})
 		end,
 	},
+	{
+		"cetanu/github-lens.nvim",
+		config = function()
+			require("github-lens").setup()
+		end,
+	},
 
 	{
 		"jinh0/eyeliner.nvim",
