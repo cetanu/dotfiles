@@ -1,7 +1,8 @@
 keybind("N", command: "nvim")
 
 group("g", description:"Git")
-keybind("gs", command: "git status")
+keybind("gs", "Status", command: "git status")
+keybind("gS", "Stash", command: "git stash")
 keybind("gr", command: "git reset --hard HEAD")
 keybind("gcf", command: "git commit --amend; git push -f")
 keybind("gp", command: "git pull -ff")
