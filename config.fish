@@ -31,6 +31,8 @@ set PATH "$HOME/.local/go/bin:$PATH"
 set PATH "$HOME/go/bin:$PATH"
 set PATH "$HOME/.local/share/zerobrew/prefix/bin:$PATH"
 set PATH "$HOME/.local/share/zerobrew/prefix/Cellar/node/26.4.0/bin:$PATH"
+set PATH "$HOME/.opencode/bin:$PATH"
+set PATH "$HOME/local/share/pi-node/node-v22.23.2-linux-x64/bin:$PATH"
 set PATH "/opt/homebrew/bin:$PATH"
 set PATH "/home/linuxbrew/.linuxbrew/bin:$PATH"
 
