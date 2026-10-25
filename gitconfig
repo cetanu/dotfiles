@@ -28,3 +28,6 @@
 [user]
 	email = syrakis@pm.me
 	name = Vasilios Syrakis
+	signingkey = /home/vsyrakis/.ssh/id_ed25519.pub
+[gpg]
+	format = ssh

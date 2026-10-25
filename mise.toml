@@ -113,6 +113,8 @@ run = "docker build --platform linux/amd64 --file test/popos/Dockerfile --tag do
 "~/.config/zellij/cheatsheet.md" = { source = "cheatsheet.md", mode = "symlink" }
 "~/.config/keymenu/config.keymenu" = { source = "config.keymenu", mode = "symlink" }
 "~/AGENTS.md" = { source = "AGENTS.md", mode = "symlink" }
+"~/.gemini/antigravity-cli/settings.json" = { source = "antigravity.json", mode = "symlink" }
+"~/.codex/rules/default.rules" = { source = "codex.rules", mode = "symlink" }
 
 # Fish activation is in config.fish because that file is managed as a whole.
 # Zsh gets a marker-delimited activation block managed by mise.

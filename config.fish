@@ -35,6 +35,10 @@ set PATH "$HOME/.opencode/bin:$PATH"
 set PATH "$HOME/local/share/pi-node/node-v22.23.2-linux-x64/bin:$PATH"
 set PATH "/opt/homebrew/bin:$PATH"
 set PATH "/home/linuxbrew/.linuxbrew/bin:$PATH"
+set PATH "/home/vsyrakis/.wash/bin:$PATH"
+
+# Android Studio
+fish_add_path --global /opt/android-studio/bin
 
 set -Ux EDITOR "nvim"
 fnm env --use-on-cd --shell fish | source
