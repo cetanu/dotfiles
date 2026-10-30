@@ -18,7 +18,6 @@ vim.lsp.config["ocamllsp"] = {
 
 local servers = {
 	"clangd",
-	"rust_analyzer",
 	"ts_ls",
 	"yamlls",
 	"jsonls",
@@ -34,8 +33,26 @@ local servers = {
 	"basedpyright",
 }
 
-for _, server in pairs(servers) do
-	vim.lsp.enable(server)
+local servers_by_filetype = {}
+for _, server in ipairs(servers) do
+	for _, filetype in ipairs(vim.lsp.config[server].filetypes) do
+		servers_by_filetype[filetype] = servers_by_filetype[filetype] or {}
+		table.insert(servers_by_filetype[filetype], server)
+	end
 end
 
-require("fidget").setup({})
+local function enable_servers(bufnr)
+	for _, server in ipairs(servers_by_filetype[vim.bo[bufnr].filetype] or {}) do
+		if not vim.lsp.is_enabled(server) then
+			vim.lsp.enable(server)
+		end
+	end
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("vsy_lsp", { clear = true }),
+	callback = function(args)
+		enable_servers(args.buf)
+	end,
+})
+enable_servers(vim.api.nvim_get_current_buf())

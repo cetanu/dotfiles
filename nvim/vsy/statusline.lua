@@ -44,10 +44,18 @@ local diagnostics = function(_, buffer)
 	return ""
 end
 
-local git_branch_name = function(window, buffer)
-	local branch = extensions.git_branch(window, buffer)
-	return branch and (" " .. branch) or ""
+local git_branch_name = function(_, buffer)
+	local branch = vim.b[buffer.bufnr].gitsigns_head
+	return branch and branch ~= "" and (" " .. branch) or ""
 end
+
+vim.api.nvim_create_autocmd("User", {
+	group = vim.api.nvim_create_augroup("vsy_statusline", { clear = true }),
+	pattern = "GitSignsUpdate",
+	callback = function()
+		vim.cmd.redrawstatus()
+	end,
+})
 
 local file_icon = function(_, buffer)
 	local icon = extensions.file_icon(_, buffer)
@@ -107,7 +115,7 @@ local generator = function()
 		"%=",
 
 		-- Right Side
-		subscribe.buf_autocmd("el_git_branch", "BufEnter", git_branch_name),
+		git_branch_name,
 		SPACE,
 		builtin.line_number,
 		":",

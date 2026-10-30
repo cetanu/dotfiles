@@ -35,22 +35,19 @@ require("lazy").setup({
 	-- UI to select things (files, grep results, open buffers...)
 	{
 		"nvim-telescope/telescope.nvim",
+		cmd = "Telescope",
 		tag = "v0.2.1",
 		-- or, branch = '0.1.x',
 		dependencies = { { "nvim-lua/plenary.nvim" } },
+		config = function()
+			require("vsy.telescope")
+		end,
 	},
 	{
 		"DrKJeff16/project.nvim",
+		lazy = true,
 		config = function() end,
-		dependencies = { -- OPTIONAL. Choose any of the following
-			{
-				"nvim-telescope/telescope.nvim",
-				dependencies = { "nvim-lua/plenary.nvim" },
-			},
-			"wsdjeg/picker.nvim",
-			"folke/snacks.nvim",
-			"ibhagwan/fzf-lua",
-		},
+		dependencies = { "nvim-telescope/telescope.nvim" },
 		opts = {},
 	},
 
@@ -71,6 +68,7 @@ require("lazy").setup({
 	-- Add git related info in the signs columns and popups
 	{
 		"TimUntersberger/neogit",
+		lazy = false,
 		config = function()
 			require("neogit").setup({
 				integrations = {
@@ -95,18 +93,23 @@ require("lazy").setup({
 	-- Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
-		lazy = false,
+		event = { "BufReadPost", "BufNewFile" },
 		build = ":TSUpdate",
 		config = function()
 			require("vsy.treesitter")
 		end,
 	},
 	-- "nvim-treesitter/nvim-treesitter-context",
-	"nvim-treesitter/nvim-treesitter-textobjects",
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		event = { "BufReadPost", "BufNewFile" },
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+	},
 
 	-- Completion
 	{
 		"saghen/blink.cmp",
+		event = "InsertEnter",
 		dependencies = { "rafamadriz/friendly-snippets" },
 		version = "1.*",
 		opts = {
@@ -122,24 +125,79 @@ require("lazy").setup({
 	-- -- Snippets plugin
 	{
 		"L3MON4D3/LuaSnip",
+		event = "InsertEnter",
+		keys = {
+			{ "<C-k>", mode = { "i", "s" } },
+			{ "<C-j>", mode = { "i", "s" } },
+			{ "<C-l>", mode = { "i", "s" } },
+		},
 		version = "v2.4.1",
 		dependencies = { "rafamadriz/friendly-snippets" },
 		config = function()
 			require("luasnip.loaders.from_vscode").lazy_load()
+			require("vsy.snippets")
 		end,
 		build = "make install_jsregexp",
 	},
 
 	-- LSP / Language support
-	"neovim/nvim-lspconfig",
+	{
+		"neovim/nvim-lspconfig",
+		ft = {
+			"c",
+			"c.doxygen",
+			"cpp",
+			"cpp.doxygen",
+			"objc",
+			"objcpp",
+			"cuda",
+			"rust",
+			"javascript",
+			"javascriptreact",
+			"typescript",
+			"typescriptreact",
+			"yaml",
+			"yaml.docker-compose",
+			"yaml.gitlab",
+			"yaml.helm-values",
+			"json",
+			"jsonc",
+			"go",
+			"gomod",
+			"gowork",
+			"gotmpl",
+			"sls",
+			"dockerfile",
+			"bash",
+			"sh",
+			"awk",
+			"ocaml",
+			"ocaml.interface",
+			"ocaml.menhir",
+			"ocaml.ocamllex",
+			"dune",
+			"reason",
+			"elixir",
+			"eelixir",
+			"heex",
+			"surface",
+			"python",
+		},
+		config = function()
+			require("vsy.lsp")
+		end,
+	},
 	{ "cespare/vim-toml", branch = "main" },
 	{ -- fancy LSP UI elements
 		"j-hui/fidget.nvim",
 		branch = "legacy",
+		event = "LspAttach",
+		opts = {},
 	},
-	"onsails/lspkind-nvim",
+	{ "onsails/lspkind-nvim", lazy = true },
 	{
 		"simrat39/rust-tools.nvim",
+		ft = "rust",
 		config = function()
 			require("rust-tools").setup({})
 		end,
@@ -176,7 +234,7 @@ require("lazy").setup({
 			require("aerial").setup()
 		end,
 	},
-	"jubnzv/virtual-types.nvim",
+	{ "jubnzv/virtual-types.nvim", event = "LspAttach" },
 
 	-- Theme
 	{
