@@ -113,7 +113,6 @@ run = "docker build --platform linux/amd64 --file test/popos/Dockerfile --tag do
 "~/.config/fish/config.fish" = { source = "config.fish", mode = "symlink" }
 "~/.config/starship/starship.toml" = { source = "starship.toml", mode = "symlink" }
 "~/.config/ghostty/config" = { source = "ghostty.config", mode = "symlink" }
-"~/.config/rex/init.lua" = { source = "rex/init.lua", mode = "symlink" }
 "~/.config/zellij/config.kdl" = { source = "zellij.kdl", mode = "symlink" }
 "~/.config/zellij/cheatsheet.md" = { source = "cheatsheet.md", mode = "symlink" }
 "~/.config/keymenu/config.keymenu" = { source = "config.keymenu", mode = "symlink" }
