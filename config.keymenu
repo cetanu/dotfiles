@@ -1,7 +1,13 @@
 keybind("N", command: "nvim")
 
+group("a", description: "Agents")
+keybind("ac", "Codex", "codex --no-daemon")
+keybind("ag", "Antigravity", "agy --dangerously-skip-permissions")
+
 group("g", description:"Git")
 keybind("gs", "Status", command: "git status")
+keybind("gd", "Diff", command: "git diff")
+keybind("gl", "Diff", command: "git log --pretty=oneline")
 keybind("gS", "Stash", command: "git stash")
 keybind("gr", command: "git reset --hard HEAD")
 keybind("gcf", command: "git commit --amend; git push -f")
