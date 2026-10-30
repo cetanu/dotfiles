@@ -10,8 +10,6 @@ alias gitcf="git commit --amend; git push -f"
 alias gitp="git checkout master; git pull"
 alias gitr="git reset --hard HEAD"
 alias gits="git status"
-git config --global user.name "Vasilios Syrakis"
-git config --global user.email "syrakis@pm.me"
 
 # Docker
 alias dkill="docker ps -qa | xargs docker kill"
@@ -29,8 +27,7 @@ set PATH "$HOME/.local/share/bob/nvim-bin:$PATH"
 set PATH "$HOME/.pulumi/bin:$PATH"
 set PATH "$HOME/.local/go/bin:$PATH"
 set PATH "$HOME/go/bin:$PATH"
-set PATH "$HOME/.local/share/zerobrew/prefix/bin:$PATH"
-set PATH "$HOME/.local/share/zerobrew/prefix/Cellar/node/26.4.0/bin:$PATH"
+set PATH "/opt/zerobrew/bin:$PATH"
 set PATH "$HOME/.opencode/bin:$PATH"
 set PATH "$HOME/local/share/pi-node/node-v22.23.2-linux-x64/bin:$PATH"
 set PATH "/opt/homebrew/bin:$PATH"
@@ -44,11 +41,6 @@ set -Ux EDITOR "nvim"
 fnm env --use-on-cd --shell fish | source
 
 export PULUMI_CONFIG_PASSPHRASE_FILE="$HOME/.pulumi/passphrase"
-
-set -Ux PYENV_ROOT $HOME/.pyenv
-test -d $PYENV_ROOT/bin; and fish_add_path $PYENV_ROOT/bin
-status is-login; and pyenv init --path | source
-pyenv init - | source 1>/dev/null
 
 #eval (opam env --switch=default)
 
