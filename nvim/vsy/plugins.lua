@@ -93,17 +93,12 @@ require("lazy").setup({
 	-- Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
-		event = { "BufReadPost", "BufNewFile" },
+		branch = "main",
+		lazy = false,
 		build = ":TSUpdate",
 		config = function()
 			require("vsy.treesitter")
 		end,
-	},
-	-- "nvim-treesitter/nvim-treesitter-context",
-	{
-		"nvim-treesitter/nvim-treesitter-textobjects",
-		event = { "BufReadPost", "BufNewFile" },
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
 	},
 
 	-- Completion
