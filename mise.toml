@@ -1,3 +1,18 @@
+[env]
+_.path = ["/opt/homebrew/bin", "/usr/local/bin", "/home/linuxbrew/.linuxbrew/bin"]
+
+[bootstrap.hooks.pre-packages]
+description = "Install Homebrew if needed"
+run = """
+  set -e
+  if ! command -v brew >/dev/null 2>&1; then
+    installer="$(mktemp)"
+    trap 'rm -f "$installer"' EXIT
+    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o "$installer"
+    /bin/bash "$installer"
+  fi
+"""
+
 # Machine packages are installed only by `mise bootstrap`.
 [bootstrap.packages]
 # Linux build prerequisites

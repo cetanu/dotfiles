@@ -6,18 +6,18 @@ alias drm="docker ps -qa | xargs docker rm"
 alias drmi="docker images -qa | xargs docker rmi -f"
 alias dkara="dkill; drm; drmi"
 
-set PATH "$HOME/.cargo/bin:$PATH"
-set PATH "$HOME/.local/bin:$PATH"
-set PATH "$HOME/.poetry/bin:$PATH"
-set PATH "$HOME/.local/share/bob/nvim-bin:$PATH"
-set PATH "$HOME/.pulumi/bin:$PATH"
-set PATH "$HOME/.local/go/bin:$PATH"
-set PATH "$HOME/go/bin:$PATH"
-set PATH "$HOME/.opencode/bin:$PATH"
-set PATH "$HOME/local/share/pi-node/node-v22.23.2-linux-x64/bin:$PATH"
-set PATH "/opt/homebrew/bin:$PATH"
-set PATH "/home/linuxbrew/.linuxbrew/bin:$PATH"
-set PATH "/home/vsyrakis/.wash/bin:$PATH"
+fish_add_path --global "$HOME/.cargo/bin"
+fish_add_path --global "$HOME/.local/bin"
+fish_add_path --global "$HOME/.poetry/bin"
+fish_add_path --global "$HOME/.local/share/bob/nvim-bin"
+fish_add_path --global "$HOME/.pulumi/bin"
+fish_add_path --global "$HOME/.local/go/bin"
+fish_add_path --global "$HOME/go/bin"
+fish_add_path --global "$HOME/.opencode/bin"
+fish_add_path --global "$HOME/local/share/pi-node/node-v22.23.2-linux-x64/bin"
+fish_add_path --global /opt/homebrew/bin
+fish_add_path --global /home/linuxbrew/.linuxbrew/bin
+fish_add_path --global /home/vsyrakis/.wash/bin
 fish_add_path --global /opt/android-studio/bin
 
 export PULUMI_CONFIG_PASSPHRASE_FILE="$HOME/.pulumi/passphrase"

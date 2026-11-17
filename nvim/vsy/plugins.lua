@@ -132,7 +132,7 @@ require("lazy").setup({
 			require("luasnip.loaders.from_vscode").lazy_load()
 			require("vsy.snippets")
 		end,
-		build = "make install_jsregexp",
+		build = vim.fn.has("win32") == 0 and "make install_jsregexp" or nil,
 	},
 
 	-- LSP / Language support

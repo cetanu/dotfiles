@@ -52,7 +52,7 @@ key_binding("tr", "Telescope oldfiles", "Recent files")
 key_binding("tb", "Telescope buffers", "Open buffers")
 key_binding("tC", "Telescope command_history", "Command History")
 key_binding("tc", "Telescope colorscheme", "Themes")
-key_binding("tS", "require('telescope.builtin').live_grep({cwd = '~/Documents'})", "Search all projects", nil, true)
+key_binding("tS", "require('telescope.builtin').live_grep({cwd = vim.fn.expand('~/Documents')})", "Search all projects", nil, true)
 
 -- Trouble
 key_binding("Td", "Trouble diagnostics", "Diagnostics")
