@@ -108,7 +108,6 @@ run = "docker build --platform linux/amd64 --file test/popos/Dockerfile --tag do
 "~/.config/zellij/config.kdl" = { source = "zellij.kdl", mode = "symlink" }
 "~/.config/zellij/cheatsheet.md" = { source = "cheatsheet.md", mode = "symlink" }
 "~/.config/keymenu/config.keymenu" = { source = "config.keymenu", mode = "symlink" }
-"~/AGENTS.md" = { source = "AGENTS.md", mode = "symlink" }
 "~/.gemini/antigravity-cli/settings.json" = { source = "antigravity.json", mode = "symlink" }
 "~/.codex/rules/default.rules" = { source = "codex.rules", mode = "symlink" }
 
