@@ -17,6 +17,7 @@ fish_add_path --global "$HOME/.opencode/bin"
 fish_add_path --global "$HOME/local/share/pi-node/node-v22.23.2-linux-x64/bin"
 fish_add_path --global /opt/homebrew/bin
 fish_add_path --global /home/linuxbrew/.linuxbrew/bin
+fish_add_path --global /home/vsyrakis/.local/share/zerobrew/prefix/bin
 fish_add_path --global /home/vsyrakis/.wash/bin
 fish_add_path --global /opt/android-studio/bin
 
