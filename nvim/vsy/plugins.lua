@@ -12,12 +12,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- suppress deprecations
-vim.deprecate = function() end
-
 require("lazy").setup({
 	{
 		"folke/todo-comments.nvim",
+		tag = "v1.5.0",
 		dependencies = "nvim-lua/plenary.nvim",
 		config = function()
 			require("todo-comments").setup({})
@@ -27,6 +25,7 @@ require("lazy").setup({
 	-- "gc" to comment visual regions/lines
 	{
 		"numToStr/Comment.nvim",
+		tag = "v0.8.0",
 		config = function()
 			require("Comment").setup()
 		end,
@@ -36,7 +35,7 @@ require("lazy").setup({
 	{
 		"nvim-telescope/telescope.nvim",
 		cmd = "Telescope",
-		tag = "v0.2.1",
+		tag = "v0.2.2",
 		-- or, branch = '0.1.x',
 		dependencies = { { "nvim-lua/plenary.nvim" } },
 		config = function()
@@ -45,8 +44,8 @@ require("lazy").setup({
 	},
 	{
 		"DrKJeff16/project.nvim",
-		lazy = true,
-		config = function() end,
+		cmd = "Project",
+		tag = "v0.0.26",
 		dependencies = { "nvim-telescope/telescope.nvim" },
 		opts = {},
 	},
@@ -67,7 +66,8 @@ require("lazy").setup({
 
 	-- Add git related info in the signs columns and popups
 	{
-		"TimUntersberger/neogit",
+		"NeogitOrg/neogit",
+		tag = "v3.0.0",
 		lazy = false,
 		config = function()
 			require("neogit").setup({
@@ -84,6 +84,7 @@ require("lazy").setup({
 	},
 	{
 		"lewis6991/gitsigns.nvim",
+		tag = "v2.1.0",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("gitsigns").setup()
@@ -93,7 +94,9 @@ require("lazy").setup({
 	-- Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
-		branch = "main",
+		-- The rewritten main branch needs a recent Neovim nightly. Older builds
+		-- use the upstream compatibility branch until Neovim is upgraded.
+		branch = vim.list and vim.list.unique and "main" or "master",
 		lazy = false,
 		build = ":TSUpdate",
 		config = function()
@@ -105,10 +108,11 @@ require("lazy").setup({
 	{
 		"saghen/blink.cmp",
 		event = "InsertEnter",
-		dependencies = { "rafamadriz/friendly-snippets" },
-		version = "1.*",
+		dependencies = { "L3MON4D3/LuaSnip" },
+		version = "1.10.2",
 		opts = {
 			keymap = { preset = "default" },
+			snippets = { preset = "luasnip" },
 			sources = {
 				default = { "lsp", "path", "snippets", "buffer" },
 			},
@@ -126,7 +130,7 @@ require("lazy").setup({
 			{ "<C-j>", mode = { "i", "s" } },
 			{ "<C-l>", mode = { "i", "s" } },
 		},
-		version = "v2.4.1",
+		version = "v2.5.0",
 		dependencies = { "rafamadriz/friendly-snippets" },
 		config = function()
 			require("luasnip.loaders.from_vscode").lazy_load()
@@ -138,6 +142,7 @@ require("lazy").setup({
 	-- LSP / Language support
 	{
 		"neovim/nvim-lspconfig",
+		tag = "v2.13.0",
 		ft = {
 			"c",
 			"c.doxygen",
@@ -185,23 +190,20 @@ require("lazy").setup({
 	{ "cespare/vim-toml", branch = "main" },
 	{ -- fancy LSP UI elements
 		"j-hui/fidget.nvim",
-		branch = "legacy",
-		event = "LspAttach",
+		tag = "v2.0.0",
 		opts = {},
 	},
 	{ "onsails/lspkind-nvim", lazy = true },
 	{
-		"simrat39/rust-tools.nvim",
-		ft = "rust",
-		config = function()
-			require("rust-tools").setup({})
-		end,
-		dependencies = { "neovim/nvim-lspconfig" },
+		"mrcjkb/rustaceanvim",
+		tag = "v9.2.2",
+		lazy = false,
 	},
 	-- LSP diagnostics
 	{
 		"folke/trouble.nvim",
-		dependencies = "kyazdani42/nvim-web-devicons",
+		tag = "v3.7.1",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("trouble").setup({
 				-- your configuration comes here
@@ -224,6 +226,7 @@ require("lazy").setup({
 	-- symbol navigation
 	{
 		"stevearc/aerial.nvim",
+		tag = "v4.0.0",
 		event = "VeryLazy",
 		config = function()
 			require("aerial").setup()
@@ -249,11 +252,13 @@ require("lazy").setup({
 	},
 	{
 		"vague-theme/vague.nvim",
+		tag = "v2.1.5",
 		lazy = false,
 		priority = 1000,
 	},
 	{
 		"srcery-colors/srcery-vim",
+		tag = "v3.0.0",
 		lazy = false,
 		priority = 1000,
 	},
@@ -264,6 +269,7 @@ require("lazy").setup({
 	},
 	{
 		"folke/tokyonight.nvim",
+		tag = "v4.14.1",
 		lazy = false,
 		priority = 1000,
 	},
@@ -274,6 +280,7 @@ require("lazy").setup({
 	--- Edit file tree as a text file
 	{
 		"stevearc/oil.nvim",
+		tag = "v2.16.0",
 		config = function()
 			require("oil").setup()
 		end,
@@ -281,14 +288,15 @@ require("lazy").setup({
 
 	-- UI enhancement
 	{
-		"stevearc/dressing.nvim",
-		config = function()
-			require("dressing").setup()
-		end,
+		"folke/snacks.nvim",
+		tag = "v2.31.0",
+		lazy = false,
+		opts = { input = { enabled = true }, picker = { enabled = true } },
 	},
 
 	{
 		"stevearc/conform.nvim",
+		tag = "v9.1.0",
 		config = function()
 			require("conform").setup({
 				formatters_by_ft = {
@@ -339,6 +347,7 @@ require("lazy").setup({
 	},
 	{
 		"cetanu/github-lens.nvim",
+		tag = "v0.4.0",
 		config = function()
 			require("github-lens").setup()
 		end,
@@ -346,6 +355,7 @@ require("lazy").setup({
 
 	{
 		"jinh0/eyeliner.nvim",
+		tag = "v0.2.0",
 		config = function()
 			require("eyeliner").setup({
 				highlight_on_key = true,
@@ -370,30 +380,32 @@ require("lazy").setup({
 
 	{
 		"nanozuki/tabby.nvim",
+		tag = "v2.8.1",
 	},
 
-	-- hightlight hex colors
+	-- Highlight hex colors
 	{
-		"norcalli/nvim-colorizer.lua",
-		lazy = true,
-		config = function()
-			require("colorizer").setup()
+		"catgoose/nvim-colorizer.lua",
+		event = { "BufReadPre", "BufNewFile" },
+		main = "colorizer",
+		init = function()
+			vim.opt.termguicolors = true
 		end,
+		opts = {},
 	},
 
 	{
 		"saghen/blink.indent",
+		tag = "v2.3.0",
 	},
 
 	{
 		"folke/noice.nvim",
+		tag = "v4.10.0",
 		event = "VeryLazy",
-		opts = {
-			-- add any options here
-		},
 		dependencies = {
 			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-			"MunifTanjim/nui.nvim",
+			{ "MunifTanjim/nui.nvim", tag = "0.4.0" },
 			-- OPTIONAL:
 			--   `nvim-notify` is only needed, if you want to use the notification view.
 			--   If not available, we use `mini` as the fallback
@@ -406,7 +418,6 @@ require("lazy").setup({
 					override = {
 						["vim.lsp.util.convert_input_to_markdown_lines"] = true,
 						["vim.lsp.util.stylize_markdown"] = true,
-						["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
 					},
 				},
 				-- you can enable a preset for easier configuration
@@ -468,6 +479,7 @@ require("lazy").setup({
 
 	{
 		"stevearc/quicker.nvim",
+		tag = "v1.5.1",
 		ft = "qf",
 		config = function()
 			require("quicker").setup()
@@ -476,6 +488,7 @@ require("lazy").setup({
 
 	{
 		"nstefan002/screenkey.nvim",
+		tag = "v2.4.2",
 		lazy = false,
 	},
 })

@@ -1,7 +1,7 @@
 {
   "allowNonWorkspaceAccess": true,
   "colorScheme": "tokyo night",
-  "model": "Gemini 3.8 Flash (Medium)",
+  "model": "Gemini 4 Neon (Low)",
   "permissions": {
     "allow": [
       "command(7z)",

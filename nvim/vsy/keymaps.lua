@@ -39,7 +39,7 @@ key_binding("lr", "vim.lsp.buf.rename()", "Rename", nil, true)
 key_binding("lR", "vim.lsp.buf.references()", "Find References", nil, true)
 key_binding("ld", "vim.lsp.buf.definition()", "Go to Definition", nil, true)
 key_binding("la", "vim.lsp.buf.code_action()", "Code Action", nil, true)
-key_binding("le", "vim.lsp.diagnostic.get_line_diagnostics()", "Diagnostics", nil, true)
+key_binding("le", "vim.diagnostic.open_float()", "Diagnostics", nil, true)
 key_binding("li", "vim.lsp.buf.incoming_calls()", "Incoming Calls", nil, true)
 key_binding("lo", "vim.lsp.buf.outgoing_calls()", "Outgoing Calls", nil, true)
 
